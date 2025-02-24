@@ -1,0 +1,3 @@
+https://chat.deepseek.com/a/chat/s/f97cd94f-660e-4d5f-b724-947a21c4230f  // como cree la database local
+
+python -m http.server 8000  // ejecutar servidor
