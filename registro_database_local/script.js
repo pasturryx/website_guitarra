@@ -6,13 +6,6 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirm_password').value;
 
-    // Validar el formato del correo electrónico
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert('Por favor, ingresa un correo electrónico válido.');
-        return;
-    }
-
     // Validar que las contraseñas coincidan
     if (password !== confirmPassword) {
         alert('Las contraseñas no coinciden. Intenta de nuevo.');
@@ -29,5 +22,5 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     localStorage.setItem('user', JSON.stringify(user));
 
     // Redirigir a la página de éxito
-    window.location.href = 'registro_database_local/success.html';
+    window.location.href = 'success.html';
 });

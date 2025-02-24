@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Piano Interactivo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <!-- Cargar Tone.js local -->
+    <script src="Tone.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .controls {
+            margin: 20px;
+        }
+
+        .piano-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .key {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.1s;
+        }
+
+        .white-key {
+            width: 40px;
+            height: 200px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 0 0 5px 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            margin: 0 2px;
+        }
+
+        .black-key {
+            width: 25px;
+            height: 120px;
+            background-color: black;
+            border-radius: 0 0 5px 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            margin: 0 -12.5px;
+            z-index: 1;
+            color: white;
+        }
+
+        .key.active {
+            background-color: #ffcc00;
+        }
+
+        .notes-reference {
+            margin: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 800px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .note-box {
+            padding: 5px 10px;
+            color: black;
+            border-radius: 3px;
+            font-weight: bold;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .settings {
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .settings label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .position-info {
+            margin: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .tts-warning {
+            margin: 10px;
+            padding: 10px;
+            background: #ffcc00;
+            border-radius: 5px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50; /* Color verde */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Color verde más oscuro al pasar el mouse */
+        }
+        
+        #loadingStatus {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #f8f8f8;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button id="toggleMarking">Marcar Notas</button>
+        <button id="clearMarkers">Limpiar</button>
+        <button id="stopTTS">Detener Dictado</button>
+        <div id="loadingStatus">Cargando sonidos de piano... <span id="loadedCount">0</span> de <span id="totalCount">0</span></div>
+    </div>
+    <div class="settings">
+        <label>
+            <input type="checkbox" id="englishNotation" checked> Notación Inglesa (A, B, C, D, E, F, G)
+        </label>
+        <label>
+            <input type="checkbox" id="spanishNotation"> Notación en Español (La, Si, Do, Re, Mi, Fa, Sol)
+        </label>
+        <label>
+            <input type="checkbox" id="multiSelect"> Seleccionar más de una nota
+        </label>
+        <label>
+            <input type="checkbox" id="namePositions"> Nombrar posiciones
+        </label>
+        <label>
+            <input type="checkbox" id="enableTTS"> Dictar notas seleccionadas
+        </label>
+        <label>
+            <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5"> Volumen
+        </label>
+    </div>
+    <div class="notes-reference" id="notesReference"></div>
+    <div class="piano-container" id="pianoContainer"></div>
+    <div class="position-info" id="positionInfo"></div>
+    <div class="tts-warning" id="ttsWarning" style="display: none;">Tu navegador no soporta la función de dictado.</div>
+
+    <script>
+        // Definición de notas y colores
+        const notesEnglish = ['C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B'];
+        const notesSpanish = ['Do', 'Do#/Reb', 'Re', 'Re#/Mib', 'Mi', 'Fa', 'Fa#/Solb', 'Sol', 'Sol#/Lab', 'La', 'La#/Sib', 'Si'];
+        const noteColors = {
+            'C': '#FF0000',
+            'C#/Db': '#FF69B4',
+            'D': '#00FF00',
+            'D#/Eb': '#FFA500',
+            'E': '#0000FF',
+            'F': '#008000',
+            'F#/Gb': '#00FF00',
+            'G': '#8B008B',
+            'G#/Ab': '#4169E1',
+            'A': '#FFD700',
+            'A#/Bb': '#FF4500',
+            'B': '#00FFFF'
+        };
+
+        // Variables de audio
+        let audioContext;
+        let masterGainNode;
+        let audioBuffers = {}; // Para almacenar los samples precargados
+        let loadedSamples = 0;
+        let totalSamples = 0;
+
+        // Configuración del piano
+        const octaves = 3;
+        let isMarking = false;
+        let isEnglishNotation = true;
+        let isMultiSelect = false;
+        let isNamingPositions = false;
+        let isTTSEnabled = false;
+        let selectedNotes = new Set();
+
+        // Verificar si el navegador soporta SpeechSynthesis
+        const isSpeechSynthesisSupported = 'speechSynthesis' in window;
+        if (!isSpeechSynthesisSupported) {
+            document.getElementById('ttsWarning').style.display = 'block';
+        }
+
+        // Función para actualizar el estado de carga de los samples
+        function updateLoadingStatus() {
+            document.getElementById('loadedCount').textContent = loadedSamples;
+            document.getElementById('totalCount').textContent = totalSamples;
+            
+            if (loadedSamples === totalSamples && totalSamples > 0) {
+                document.getElementById('loadingStatus').innerHTML = 'Todos los sonidos de piano cargados correctamente ✓';
+                document.getElementById('loadingStatus').style.color = 'green';
+            }
+        }
+
+      // Variables de audio
+let masterVolume = 0.5;
+let sampler; // Para el sampler de Tone.js
+
+// Inicializar audio con Tone.js
+function initAudio() {
+    // Configurar el volumen maestro
+    Tone.Master.volume.value = Tone.gainToDb(masterVolume);
+    
+    // Crear un mapa de notas para el sampler
+    const noteMap = {};
+    
+    // Lista mínima de notas a cargar (puedes añadir más)
+    const notesToLoad = [
+        "C3", "E3", "G3", "C4", "E4", "G4", "C5", "E5", "G5"
+    ];
+    
+    // Configurar las URLs para cada nota
+    notesToLoad.forEach(note => {
+        noteMap[note] = `piano_audio/${note}.mp3`;
+    });
+    
+    // Crear el sampler
+    sampler = new Tone.Sampler({
+        urls: noteMap,
+        baseUrl: "./",
+        onload: () => {
+            document.getElementById('loadingStatus').innerHTML = 'Todos los sonidos de piano cargados correctamente ✓';
+            document.getElementById('loadingStatus').style.color = 'green';
+        },
+        onerror: (error) => {
+            console.warn("Error cargando sonidos:", error);
+            document.getElementById('loadingStatus').innerHTML = 
+                '⚠️ Algunos sonidos no pudieron cargarse. Se usará sintetizador como respaldo.';
+            document.getElementById('loadingStatus').style.color = 'orange';
+        }
+    }).toDestination();
+    
+    // Actualizar el estado de carga
+    document.getElementById('loadingStatus').innerHTML = 'Cargando sonidos de piano...';
+}
+
+     function loadPianoSamples() {
+    const filesToLoad = [
+        "A0.mp3", "A1.mp3", "A2.mp3", "A3.mp3", "A4.mp3", "A5.mp3", "A6.mp3", "A7.mp3",
+        "Ab1.mp3", "Ab2.mp3", "Ab3.mp3", "Ab4.mp3", "Ab5.mp3", "Ab6.mp3", "Ab7.mp3",
+        "B0.mp3", "B1.mp3", "B2.mp3", "B3.mp3", "B4.mp3", "B5.mp3", "B6.mp3", "B7.mp3",
+        "Bb0.mp3", "Bb1.mp3", "Bb2.mp3", "Bb3.mp3", "Bb4.mp3", "Bb5.mp3", "Bb6.mp3", "Bb7.mp3",
+        "C1.mp3", "C2.mp3", "C3.mp3", "C4.mp3", "C5.mp3", "C6.mp3", "C7.mp3", "C8.mp3",
+        "D1.mp3", "D2.mp3", "D3.mp3", "D4.mp3", "D5.mp3", "D6.mp3", "D7.mp3",
+        "Db1.mp3", "Db2.mp3", "Db3.mp3", "Db4.mp3", "Db5.mp3", "Db6.mp3", "Db7.mp3", "Db8.mp3",
+        "E1.mp3", "E2.mp3", "E3.mp3", "E4.mp3", "E5.mp3", "E6.mp3", "E7.mp3",
+        "Eb1.mp3", "Eb2.mp3", "Eb3.mp3", "Eb4.mp3", "Eb5.mp3", "Eb6.mp3", "Eb7.mp3",
+        "F1.mp3", "F2.mp3", "F3.mp3", "F4.mp3", "F5.mp3", "F6.mp3", "F7.mp3",
+        "G1.mp3", "G2.mp3", "G3.mp3", "G4.mp3", "G5.mp3", "G6.mp3", "G7.mp3",
+        "Gb1.mp3", "Gb2.mp3", "Gb3.mp3", "Gb4.mp3", "Gb5.mp3", "Gb6.mp3", "Gb7.mp3"
+    ];
+    
+    totalSamples = filesToLoad.length;
+    updateLoadingStatus();
+    
+    filesToLoad.forEach(fileName => {
+        const filePath = `piano_audio/${fileName}`;
+        console.log(`Cargando: ${filePath}`); // Depuración
+        
+        fetch(filePath)
+            .then(response => {
+                if (response.ok) {
+                    return response.arrayBuffer();
+                }
+                throw new Error(`No se pudo cargar ${fileName}`);
+            })
+            .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+            .then(audioBuffer => {
+                audioBuffers[fileName] = audioBuffer;
+                loadedSamples++;
+                updateLoadingStatus();
+                console.log(`Cargado: ${fileName}`); // Depuración
+            })
+            .catch(error => {
+                console.warn(`Error cargando ${fileName}: ${error}`);
+                loadedSamples++;
+                updateLoadingStatus();
+            });
+    });
+}
+        function getFrequency(note, octave) {
+            const noteIndex = notesEnglish.findIndex(n => n.split('/')[0] === note.split('/')[0]);
+            const baseFrequency = 261.63; // Frecuencia de C4 (Do central)
+            return baseFrequency * Math.pow(2, octave - 4 + noteIndex / 12);
+        }
+
+       /* function getNoteFileName(note, octave) {
+            // Convertir la notación inglesa (con sostenidos) a la notación del archivo
+            let cleanNote = note.split('/')[0]; // Tomar solo la primera parte (C# -> C#, Db -> Db)
+            
+            // Si la nota tiene sostenido (#), convertirla a bemol para coincidir con tus archivos
+            if (cleanNote.includes('#')) {
+                const noteIndex = notesEnglish.findIndex(n => n.split('/')[0] === cleanNote);
+                // Tomar la segunda parte de la nota (C#/Db -> Db)
+                cleanNote = notesEnglish[noteIndex].split('/')[1];
+            }
+            
+            return `${cleanNote}${octave}.mp3`;
+        }
+
+        function playNote(note, octave) {
+            if (!audioContext) {
+                initAudio();
+            }
+            
+            // Si es notación española, convertir a inglesa para buscar el archivo
+            let englishNote = note;
+            if (!isEnglishNotation) {
+                englishNote = notesEnglish[notesSpanish.indexOf(note)];
+            }
+            
+            // Determinar qué archivo reproducir
+            const fileName = getNoteFileName(englishNote, octave);
+            
+            // Si tenemos el archivo cargado, reproducirlo
+            if (audioBuffers[fileName]) {
+                const source = audioContext.createBufferSource();
+                source.buffer = audioBuffers[fileName];
+                
+                const gainNode = audioContext.createGain();
+                gainNode.gain.value = masterGainNode.gain.value;
+                
+                source.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                source.start(0);
+            } else {
+                // Si no tenemos el archivo, usar el oscilador como fallback
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+
+                oscillator.type = 'sine';
+                oscillator.frequency.value = getFrequency(englishNote, octave);
+
+                gainNode.gain.setValueAtTime(masterGainNode.gain.value, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 1);
+
+                oscillator.connect(gainNode);
+                gainNode.connect(masterGainNode);
+
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 1);
+                
+                console.warn(`No se encontró el archivo de audio para ${fileName}, usando oscilador como fallback`);
+            }
+        }*/
+
+     function getNoteFileName(note, octave) {
+    // Convertir la notación inglesa (con sostenidos) a la notación del archivo
+    let cleanNote = note.split('/')[0]; // Tomar solo la primera parte (C# -> C#, Db -> Db)
+    
+    // Si la nota tiene sostenido (#), convertirla a bemol para coincidir con tus archivos
+    if (cleanNote.includes('#')) {
+        const noteIndex = notesEnglish.findIndex(n => n.split('/')[0] === cleanNote);
+        // Tomar la segunda parte de la nota (C#/Db -> Db)
+        cleanNote = notesEnglish[noteIndex].split('/')[1];
+    }
+    
+    // Asegurarse de que el nombre del archivo coincida exactamente con los archivos en la carpeta
+    const fileName = `${cleanNote}${octave}.mp3`;
+    console.log(`Intentando reproducir: ${fileName}`); // Depuración
+    return fileName;
+}
+// Reproducir nota usando Tone.js
+function playNote(note, octave) {
+    // Asegurarse de que Tone.js esté inicializado
+    if (Tone.context.state !== 'running') {
+        Tone.start();
+    }
+    
+    // Si no hemos inicializado el audio, hacerlo ahora
+    if (!sampler) {
+        initAudio();
+    }
+    
+    // Convertir notación española a inglesa si es necesario
+    let englishNote = note;
+    if (!isEnglishNotation) {
+        englishNote = notesEnglish[notesSpanish.indexOf(note)];
+    }
+    
+    // Extraer la nota base (sin sostenidos/bemoles)
+    const baseNote = englishNote.split('/')[0];
+    
+    // Crear el nombre de la nota en formato para Tone.js (ej: C4, D#5)
+    const toneName = `${baseNote}${octave}`;
+    
+    // Reproducir la nota
+    if (sampler.loaded) {
+        // Usar el sampler si está cargado
+        sampler.triggerAttackRelease(toneName, "1n");
+    } else {
+        // Fallback a un sintetizador simple
+        const synth = new Tone.Synth().toDestination();
+        synth.volume.value = Tone.gainToDb(masterVolume);
+        synth.triggerAttackRelease(toneName, "1n");
+    }
+}
+
+        // Funciones de texto a voz
+        function speak(text) {
+            if (isSpeechSynthesisSupported && isTTSEnabled) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'es-ES';
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        function stopTTS() {
+            if (isSpeechSynthesisSupported) {
+                speechSynthesis.cancel();
+            }
+        }
+
+        // Función para manejar el clic en una tecla
+        function handleKeyClick(note, position, octave) {
+            if (isMarking) {
+                const key = document.querySelector(`.key[data-position="${position}"]`);
+                if (key.classList.contains('active')) {
+                    key.classList.remove('active');
+                    selectedNotes.delete(note);
+                    key.style.backgroundColor = key.classList.contains('black-key') ? 'black' : 'white';
+                } else {
+                    if (!isMultiSelect) {
+                        clearMarkers();
+                    }
+                    key.classList.add('active');
+                    selectedNotes.add(note);
+                    const englishNote = isEnglishNotation ? note : notesEnglish[notesSpanish.indexOf(note)];
+                    key.style.backgroundColor = noteColors[englishNote.replace(/#\/.+/, '')];
+                    
+                    // Reproducir sonido
+                    playNote(note, octave);
+                }
+
+                if (isNamingPositions) {
+                    const positionInfo = document.getElementById('positionInfo');
+                    let message = `Notas seleccionadas: `;
+                    selectedNotes.forEach(note => {
+                        const keys = document.querySelectorAll(`.key[data-note="${note}"].active`);
+                        keys.forEach(key => {
+                            message += `${note} (Tecla ${key.dataset.position}, ${key.classList.contains('black-key') ? 'negra' : 'blanca'}), `;
+                        });
+                    });
+                    positionInfo.textContent = message.slice(0, -2);
+                    speak(message.slice(0, -2));
+                }
+            } else {
+                // Reproducir sonido cuando no estamos en modo marcado
+                playNote(note, octave);
+            }
+        }
+
+        // Función para crear el piano
+        function createPiano() {
+            const pianoContainer = document.getElementById('pianoContainer');
+            pianoContainer.innerHTML = '';
+            const notes = isEnglishNotation ? notesEnglish : notesSpanish;
+
+            for (let octave = 3; octave < 6; octave++) {
+                notes.forEach((note, index) => {
+                    const key = document.createElement('div');
+                    key.className = 'key';
+                    key.classList.add(index % 12 === 1 || index % 12 === 3 || index % 12 === 6 || index % 12 === 8 || index % 12 === 10 ? 'black-key' : 'white-key');
+                    key.textContent = note;
+                    key.dataset.note = note;
+                    key.dataset.position = ((octave - 3) * 12) + index + 1;
+                    key.dataset.octave = octave;
+                    key.addEventListener('click', () => handleKeyClick(note, key.dataset.position, octave));
+                    pianoContainer.appendChild(key);
+                });
+            }
+        }
+
+        // Función para crear la referencia de notas
+        function createNotesReference() {
+            const reference = document.getElementById('notesReference');
+            reference.innerHTML = '';
+            const notes = isEnglishNotation ? notesEnglish : notesSpanish;
+            notes.forEach(note => {
+                const noteBox = document.createElement('div');
+                noteBox.className = 'note-box';
+                noteBox.textContent = note;
+                const englishNote = isEnglishNotation ? note : notesEnglish[notesSpanish.indexOf(note)];
+                noteBox.style.backgroundColor = noteColors[englishNote.replace(/#\/.+/, '')];
+                noteBox.addEventListener('click', () => highlightNote(note));
+                reference.appendChild(noteBox);
+            });
+        }
+
+
+        //tocar piano con teclas
+        // Mapeo de teclas a notas
+const keyMap = {
+    'q': { note: 'C', octave: 4 },   // Do
+    '2': { note: 'C#/Db', octave: 4 }, // Do sostenido / Re bemol
+    'w': { note: 'D', octave: 4 },   // Re
+    '4': { note: 'D#/Eb', octave: 4 }, // Re sostenido / Mi bemol
+    'e': { note: 'E', octave: 4 },   // Mi
+    'r': { note: 'F', octave: 4 },   // Fa
+    '6': { note: 'F#/Gb', octave: 4 }, // Fa sostenido / Sol bemol
+    't': { note: 'G', octave: 4 },   // Sol
+    '8': { note: 'G#/Ab', octave: 4 }, // Sol sostenido / La bemol
+    'y': { note: 'A', octave: 4 },   // La
+    '0': { note: 'A#/Bb', octave: 4 }, // La sostenido / Si bemol
+    'u': { note: 'B', octave: 4 }    // Si
+};
+
+// Almacenar teclas activas
+const activeKeys = new Set();
+
+// Función para manejar la pulsación de teclas
+function handleKeyDown(event) {
+    const key = event.key.toLowerCase(); // Obtener la tecla presionada
+    if (keyMap[key]) {
+        const { note, octave } = keyMap[key];
+        playNote(note, octave); // Reproducir la nota
+        highlightKey(note, octave); // Resaltar tecla
+        activeKeys.add(key); // Agregar a teclas activas
+    }
+}
+
+// Función para manejar la liberación de teclas
+function handleKeyUp(event) {
+    const key = event.key.toLowerCase();
+    if (activeKeys.has(key)) {
+        const { note, octave } = keyMap[key];
+        unhighlightKey(note, octave); // Quitar resalte de la tecla
+        activeKeys.delete(key); // Eliminar de teclas activas
+    }
+}
+
+// Función para resaltar la tecla
+function highlightKey(note, octave) {
+    const keys = document.querySelectorAll(`.key[data-note="${note}"][data-octave="${octave}"]`);
+    keys.forEach(key => {
+        key.classList.add('active');
+        key.style.backgroundColor = noteColors[note]; // Cambiar color
+    });
+}
+
+// Función para quitar el resalte de la tecla
+function unhighlightKey(note, octave) {
+    const keys = document.querySelectorAll(`.key[data-note="${note}"][data-octave="${octave}"]`);
+    keys.forEach(key => {
+        key.classList.remove('active');
+        key.style.backgroundColor = key.classList.contains('black-key') ? 'black' : 'white'; // Restaurar color
+    });
+}
+
+// Agregar los eventos al documento
+document.addEventListener('keydown', handleKeyDown);
+document.addEventListener('keyup', handleKeyUp);
+
+        // Función para resaltar una nota
+        function highlightNote(selectedNote) {
+            if (!isMultiSelect) {
+                clearMarkers();
+            }
+            selectedNotes.add(selectedNote);
+
+            const keys = document.querySelectorAll(`.key[data-note="${selectedNote}"]`);
+            keys.forEach(key => {
+                key.classList.add('active');
+                const englishNote = isEnglishNotation ? selectedNote : notesEnglish[notesSpanish.indexOf(selectedNote)];
+                key.style.backgroundColor = noteColors[englishNote.replace(/#\/.+/, '')];
+                playNote(selectedNote, key.dataset.octave);
+            });
+
+            if (isNamingPositions) {
+                const positionInfo = document.getElementById('positionInfo');
+                let message = `Notas seleccionadas: `;
+                selectedNotes.forEach(note => {
+                    const keys = document.querySelectorAll(`.key[data-note="${note}"].active`);
+                    keys.forEach(key => {
+                        message += `${note} (Tecla ${key.dataset.position}, ${key.classList.contains('black-key') ? 'negra' : 'blanca'}), `;
+                    });
+                });
+                positionInfo.textContent = message.slice(0, -2);
+                speak(message.slice(0, -2));
+            }
+        }
+
+        // Función para limpiar marcadores
+        function clearMarkers() {
+            const keys = document.querySelectorAll('.key');
+            keys.forEach(key => {
+                key.classList.remove('active');
+                key.style.backgroundColor = key.classList.contains('black-key') ? 'black' : 'white';
+            });
+            selectedNotes.clear();
+            document.getElementById('positionInfo').textContent = '';
+        }
+
+        // Inicialización y event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            createNotesReference();
+            createPiano();
+
+            const toggleButton = document.getElementById('toggleMarking');
+            const clearButton = document.getElementById('clearMarkers');
+            const stopTTSButton = document.getElementById('stopTTS');
+            const englishNotationCheckbox = document.getElementById('englishNotation');
+            const spanishNotationCheckbox = document.getElementById('spanishNotation');
+            const multiSelectCheckbox = document.getElementById('multiSelect');
+            const namePositionsCheckbox = document.getElementById('namePositions');
+            const enableTTSCheckbox = document.getElementById('enableTTS');
+            const volumeControl = document.getElementById('volume');
+
+            toggleButton.addEventListener('click', () => {
+                isMarking = !isMarking;
+                toggleButton.textContent = isMarking ? 'Dejar de Marcar' : 'Marcar Notas';
+            });
+
+            clearButton.addEventListener('click', clearMarkers);
+            stopTTSButton.addEventListener('click', stopTTS);
+
+            englishNotationCheckbox.addEventListener('change', () => {
+                if (englishNotationCheckbox.checked) {
+                    spanishNotationCheckbox.checked = false;
+                    isEnglishNotation = true;
+                    createNotesReference();
+                    createPiano();
+                }
+            });
+
+            spanishNotationCheckbox.addEventListener('change', () => {
+                if (spanishNotationCheckbox.checked) {
+                    englishNotationCheckbox.checked = false;
+                    isEnglishNotation = false;
+                    createNotesReference();
+                    createPiano();
+                }
+            });
+
+            multiSelectCheckbox.addEventListener('change', () => {
+                isMultiSelect = multiSelectCheckbox.checked;
+                if (!isMultiSelect) {
+                    clearMarkers();
+                }
+            });
+
+            namePositionsCheckbox.addEventListener('change', () => {
+                isNamingPositions = namePositionsCheckbox.checked;
+                if (!isNamingPositions) {
+                    document.getElementById('positionInfo').textContent = '';
+                }
+            });
+
+            enableTTSCheckbox.addEventListener('change', () => {
+                isTTSEnabled = enableTTSCheckbox.checked;
+            });
+
+            volumeControl.addEventListener('input', (e) => {
+                if (masterGainNode) {
+                    masterGainNode.gain.value = e.target.value;
+                }
+            });
+
+            // Iniciar el audio con interacción del usuario
+            document.addEventListener('click', () => {
+                if (!audioContext) {
+                    initAudio();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
