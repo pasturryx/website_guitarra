@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoría Musical: Acordes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background: #007BFF;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #007BFF;
+        }
+        p {
+            line-height: 1.6;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .chord-box {
+            border: 1px solid #007BFF;
+            background: #e9f5ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .chord-structure {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .scale-box {
+            border: 1px solid #007BFF;
+            background: #d1e7ff;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: #007BFF;
+            color: #fff;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .degree {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Teoría Musical: Acordes</h1>
+</header>
+
+<div class="container">
+    <button id="toggleButton" onclick="toggleRead()">Leer Información</button>
+
+    <div class="section">
+        <h2>¿Qué es un tono y un semitono?</h2>
+        <p>
+            En música, un <strong>tono</strong> es la distancia entre dos notas que equivale a dos semitonos. Por ejemplo, de Do a Re hay un tono. Un <strong>semitono</strong> es la distancia más pequeña entre dos notas, como de Do a Do sostenido (C#) o de Mi a Fa.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Notación Musical y Regla de Semitonos</h2>
+        <p>
+            Las notas en la notación musical en inglés son: C, D, E, F, G, A, B, mientras que en español son: Do, Re, Mi, Fa, Sol, La, Si. La estructura de la escala musical es cíclica y tiene 7 notas en una octava.
+        </p>
+        <p>
+            Es importante mencionar que las notas Mi (E) y Fa (F), así como Si (B) y Do (C), están separadas por un semitono, lo que significa que no hay un tono entre ellas. Esta regla es fundamental en la estructura de la escala.
+        </p>
+    </div>
+
+    <div class="section">
+        <h2>Clasificación de Acordes</h2>
+        
+        <h3>Acordes Mayores</h3>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Tono + Semitono + Tono + Tono + Tono + Semitono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Sol mayor (G)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> Sol, Si, Re</p>
+            <p><strong>Escala:</strong> Sol, La, Si, Do, Re, Mi, Fa#</p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <div>I  II  III  IV  V  VI  VII</div>
+                <div>Intervalos:</div>
+                <div>T  T  ST  T  T  T  ST</div>
+                <div>Notas:</div>
+                <div>Sol  La  Si  Do  Re  Mi  Fa#</div>
+            </div>
+        </div>
+
+        <h3>Acordes Menores</h3>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Semitono + Tono + Tono + Semitono + Tono + Tono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Re menor (Dm)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> Re, Fa, La</p>
+            <p><strong>Escala:</strong> Re, Mi, Fa, Sol, La, Si, Do</p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <div>I  II  III  IV  V  VI  VII</div>
+                <div>Intervalos:</div>
+                <div>T  ST  T  T  ST  T  T</div>
+                <div>Notas:</div>
+                <div>Re  Mi  Fa  Sol  La  Si  Do</div>
+            </div>
+        </div>
+
+        <h3>Acordes Aumentados</h3>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Tono + Tono + Semitono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Do aumentado (C+)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> Do, Mi, Sol#</p>
+            <p><strong>Escala:</strong> Do, Re, Mi, Fa, Sol#, La, Si</p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <div>I  II  III  IV  V  VI  VII</div>
+                <div>Intervalos:</div>
+                <div>T  T  T  ST  T  T  ST</div>
+                <div>Notas:</div>
+                <div>Do  Re  Mi  Fa  Sol#  La  Si</div>
+            </div>
+        </div>
+
+        <h3>Acordes Disminuidos</h3>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Semitono + Tono + Semitono + Tono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Si disminuido (Bdim)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> Si, Re, Fa, Lab</p>
+            <p><strong>Escala:</strong> Si, Do, Re, Mi, Fa, Sol, Lab</p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <div>I  II  III  IV  V  VI  VII</div>
+                <div>Intervalos:</div>
+                <div>T  ST  T  ST  T  ST  T</div>
+                <div>Notas:</div>
+                <div>Si  Do  Re  Mi  Fa  Sol  Lab</div>
+            </div>
+        </div>
+
+        <h3>Acordes de Séptima</h3>
+        
+        <h4>Acordes Séptima Natural</h4>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Tono + Semitono + Tono + Tono + Semitono + Tono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Sol séptima natural (G7)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> Sol, Si, Re, Fa</p>
+            <p><strong>Escala:</strong> Sol, La, Si, Do, Re, Mi, Fa</p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <div>I  II  III  IV  V  VI  VII</div>
+                <div>Intervalos:</div>
+                <div>T  T  ST  T  T  ST  T</div>
+                <div>Notas:</div>
+                <div>Sol  La  Si  Do  Re  Mi  Fa</div>
+            </div>
+        </div>
+
+        <h4>Acordes Séptima Mayor</h4>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Tono + Semitono + Tono + Tono + Tono + Semitono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Fa séptima mayor (Fmaj7)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> Fa, La, Do, Mi</p>
+            <p><strong>Escala:</strong> Fa, Sol, La, Sib, Do, Re, Mi</p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <div>I  II  III  IV  V  VI  VII</div>
+                <div>Intervalos:</div>
+                <div>T  T  ST  T  T  T  ST</div>
+                <div>Notas:</div>
+                <div>Fa  Sol  La  Sib  Do  Re  Mi</div>
+            </div>
+        </div>
+
+        <h4>Acordes Séptima Menor</h4>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Semitono + Tono + Tono + Semitono + Tono + Tono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Mi séptima menor (Em7)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> Mi, Sol, Si, Re</p>
+            <p><strong>Escala:</strong> Mi, Fa#, Sol, La, Si, Do, Re</p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <div>I  II  III  IV  V  VI  VII</div>
+                <div>Intervalos:</div>
+                <div>T  ST  T  T  ST  T  T</div>
+                <div>Notas:</div>
+                <div>Mi  Fa#  Sol  La  Si  Do  Re</div>
+            </div>
+        </div>
+
+        <h3>Acordes Sus2 y Sus4</h3>
+        
+        <h4>Acordes Sus2</h4>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Semitono + Tono + Tono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Re sus2 (Dsus2)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> Re, Mi, La</p>
+            <p><strong>Escala:</strong> Re, Mi, Fa#, Sol, La, Si, Do</p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <div>I  II  III  IV  V  VI  VII</div>
+                <div>Intervalos:</div>
+                <div>T  ST  T  T  ST  T  T</div>
+                <div>Notas:</div>
+                <div>Re  Mi  Fa#  Sol  La  Si  Do</div>
+            </div>
+        </div>
+
+        <h4>Acordes Sus4</h4>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Tono + Semitono + Tono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Sol sus4 (Gsus4)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> Sol, Do, Re</p>
+            <p><strong>Escala:</strong> Sol, La, Si, Do, Re, Mi, Fa#</p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <div>I  II  III  IV  V  VI  VII</div>
+                <div>Intervalos:</div>
+                <div>T  T  ST  T  T  T  ST</div>
+                <div>Notas:</div>
+                <div>Sol  La  Si  Do  Re  Mi  Fa#</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Teoría Musical. Todos los derechos reservados.</p>
+</footer>
+
+<script>
+    let reading = false;
+
+    function toggleRead() {
+        reading = !reading;
+        const button = document.getElementById('toggleButton');
+        if (reading) {
+            button.innerText = "Detener Lectura";
+            readText();
+        } else {
+            button.innerText = "Leer Información";
+            window.speechSynthesis.cancel(); // Detiene la lectura
+        }
+    }
+
+    function readText() {
+        const text = document.body.innerText;
+        const speech = new SpeechSynthesisUtterance(text);
+        speech.lang = "es-ES";
+        speech.onend = function() {
+            reading = false;
+            document.getElementById('toggleButton').innerText = "Leer Información";
+        };
+        window.speechSynthesis.speak(speech);
+    }
+
+    document.addEventListener('keydown', function(event) {
+        if (event.ctrlKey && event.key === 'l') {
+            event.preventDefault();
+            toggleRead();
+        }
+    });
+</script>
+
+</body>
+</html>

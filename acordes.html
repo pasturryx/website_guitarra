@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diccionario de Acordes con Diagramas</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            color: #007BFF;
+        }
+        p {
+            line-height: 1.6;
+        }
+
+        /* Estilos para las secciones de acordes */
+        .chord-section {
+            margin-bottom: 40px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .chord-section h2 {
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .chord-section h3 {
+            color: #666;
+            margin-top: 30px;
+            border-bottom: 1px dashed #007BFF;
+            padding-bottom: 5px;
+        }
+        .chord-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .chord-diagram {
+            font-family: monospace;
+            white-space: pre;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1 1 calc(25% - 20px);
+            min-width: 200px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .chord-diagram:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .chord-name {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        /* Colores para tipos de acordes */
+        .major { background-color: #e3f2fd; }
+        .minor { background-color: #fff3e0; }
+        .seventh { background-color: #fce4ec; }
+        .major-seventh { background-color: #e8f5e9; }
+        .minor-seventh { background-color: #f3e5f5; }
+        .sus2 { background-color: #fff8e1; }
+        .sus4 { background-color: #e0f7fa; }
+        .diminished { background-color: #ffebee; }
+        .augmented { background-color: #fbe9e7; }
+        
+        /* Variaciones */
+        .variation { 
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            opacity: 0.85;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+            color: #fff;
+            margin-top: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .chord-diagram {
+                flex: 1 1 calc(50% - 20px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Diccionario de Acordes con Diagramas</h1>
+    <p>Explora y aprende los acordes más comunes en la guitarra con sus variaciones</p>
+</header>
+
+<div class="container">
+    <!-- Acordes Mayores -->
+<div class="chord-section">
+    <h2>Acordes Mayores</h2>
+    <div class="chord-row">
+        <div class="chord-diagram major">
+            <div class="chord-name">Do mayor (C)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|-----|
+B    |---1-|-----|-----|
+G    |-----|-----|-----|
+D    |-----|---2-|-----|
+A    |-----|-----|--3--|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram major">
+            <div class="chord-name">Re mayor (D)</div>
+            <pre>
+    1        2         3
+E    |-----|---2-|-----|
+B    |-----|-----|---3-|
+G    |-----|-----|-----|
+D    |-----|---2-|-----|
+A    |-x---|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram major">
+            <div class="chord-name">Mi mayor (E)</div>
+            <pre>
+        1        2
+E    |-----|-----|
+B    |-----|-----|
+G    |---1-|-----|
+D    |-----|---2-|
+A    |-----|---2-|
+E    |-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram major">
+            <div class="chord-name">Fa mayor (F)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |---1-|-----|-----|
+G    |-----|---2-|-----|
+D    |-----|-----|---3-|
+A    |-----|-----|---3-|
+E    |---1-|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram major">
+            <div class="chord-name">Sol mayor (G)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|---3-|
+B    |-----|-----|-----|
+G    |-----|-----|-----|
+D    |-----|-----|-----|
+A    |-----|---2-|-----|
+E    |-----|-----|---3-|</pre>
+        </div>
+
+        <div class="chord-diagram major">
+            <div class="chord-name">La mayor (A)</div>
+            <pre>
+        1        2
+E    |-----|-----|
+B    |-----|---2-|
+G    |-----|---2-|
+D    |-----|---2-|
+A    |-----|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram major">
+            <div class="chord-name">Si mayor (B)</div>
+            <pre>
+    1        2         3         4
+E    |-----|---2-|-----|-----|
+B    |-----|-----|-----|---4-|
+G    |-----|-----|-----|---4-|
+D    |-----|-----|-----|---4-|
+A    |-----|---2-|-----|-----|
+E    |-x---|-----|-----|-----|</pre>
+        </div>
+    </div>
+
+    <h3>Variaciones</h3>
+    <div class="chord-row">
+        <div class="chord-diagram variation">
+            <div class="chord-name">Do mayor (C) - Variación</div>
+            <pre>
+    3        4         5
+E    |---3-|-----|-----|
+B    |-----|-----|---5-|
+G    |-----|-----|---5-|
+D    |-----|-----|---5-|
+A    |---3-|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram variation">
+            <div class="chord-name">Mi mayor (E) - Variación</div>
+            <pre>
+    7        8         9
+E    |---7-|-----|-----|
+B    |-----|-----|---9-|
+G    |-----|-----|---9-|
+D    |-----|-----|---9-|
+A    |---7-|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram variation">
+            <div class="chord-name">Sol mayor (G) - Variación</div>
+            <pre>
+     3
+E    |---3-|
+B    |-----|
+G    |-----|
+D    |-----|
+A    |-x---|
+E    |---3-|</pre>
+        </div>
+    </div>
+</div>
+
+    <!-- Acordes Menores -->
+<div class="chord-section">
+    <h2>Acordes Menores</h2>
+    <div class="chord-row">
+        <div class="chord-diagram minor">
+            <div class="chord-name">Do menor (Cm)</div>
+            <pre>
+    3        4         5
+E    |---3-|-----|-----|
+B    |-----|---4-|-----|
+G    |-----|-----|---5-|
+D    |-----|-----|---5-|
+A    |---3-|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor">
+            <div class="chord-name">Re menor (Dm)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |-----|-----|---3-|
+G    |-----|---2-|-----|
+D    |-----|-----|-----|
+A    |-x---|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor">
+            <div class="chord-name">Mi menor (Em)</div>
+            <pre>
+        1        2
+E    |-----|-----|
+B    |-----|-----|
+G    |-----|-----|
+D    |-----|---2-|
+A    |-----|---2-|
+E    |-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor">
+            <div class="chord-name">Fa menor (Fm)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |---1-|-----|-----|
+G    |---1-|-----|-----|
+D    |-----|-----|---3-|
+A    |-----|-----|---3-|
+E    |---1-|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor">
+            <div class="chord-name">Sol menor (Gm)</div>
+            <pre>
+    3        4         5
+E    |---3-|-----|-----|
+B    |---3-|-----|-----|
+G    |---3-|-----|-----|
+D    |-----|-----|---5-|
+A    |-----|-----|---5-|
+E    |---3-|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor">
+            <div class="chord-name">La menor (Am)</div>
+            <pre>
+        1        2
+E    |-----|-----|
+B    |---1-|-----|
+G    |-----|---2-|
+D    |-----|---2-|
+A    |-----|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor">
+            <div class="chord-name">Si menor (Bm)</div>
+            <pre>
+    2        3         4
+E    |---2-|-----|-----|
+B    |-----|---3-|-----|
+G    |-----|-----|---4-|
+D    |-----|-----|---4-|
+A    |---2-|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+    </div>
+
+    <h3>Variaciones</h3>
+    <div class="chord-row">
+        <div class="chord-diagram variation">
+            <div class="chord-name">La menor (Am) - Variación</div>
+            <pre>
+     1        2
+E    |-x---|-----|
+B    |---1-|-----|
+G    |-----|---2-|
+D    |-----|---2-|
+A    |-----|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram variation">
+            <div class="chord-name">Mi menor (Em) - Variación</div>
+            <pre>
+    7        8         9
+E    |---7-|-----|-----|
+B    |-----|---8-|-----|
+G    |-----|-----|---9-|
+D    |-----|-----|---9-|
+A    |---7-|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+    </div>
+</div>
+
+<!-- Acordes de Séptima -->
+<div class="chord-section">
+    <h2>Acordes de Séptima</h2>
+    <div class="chord-row">
+        <div class="chord-diagram seventh">
+            <div class="chord-name">Do séptima (C7)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|-----|
+B    |---1-|-----|-----|
+G    |-----|-----|---3-|
+D    |-----|---2-|-----|
+A    |-----|-----|---3-|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram seventh">
+            <div class="chord-name">Re séptima (D7)</div>
+            <pre>
+     1        2
+E    |-----|---2-|
+B    |---1-|-----|
+G    |-----|-----|
+D    |-----|---2-|
+A    |-x---|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram seventh">
+            <div class="chord-name">Mi séptima (E7)</div>
+            <pre>
+        1        2
+E    |-----|-----|
+B    |-----|-----|
+G    |-----|-----|
+D    |---1-|-----|
+A    |-----|---2-|
+E    |-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram seventh">
+            <div class="chord-name">Fa séptima (F7)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |---1-|-----|-----|
+G    |---1-|-----|-----|
+D    |-----|---2-|-----|
+A    |-----|-----|---3-|
+E    |---1-|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram seventh">
+            <div class="chord-name">Sol séptima (G7)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |-----|-----|-----|
+G    |-----|-----|-----|
+D    |-----|-----|-----|
+A    |-----|---2-|-----|
+E    |-----|-----|---3-|</pre>
+        </div>
+
+        <div class="chord-diagram seventh">
+            <div class="chord-name">La séptima (A7)</div>
+            <pre>
+    1        2
+E    |-----|-----|
+B    |-----|---2-|
+G    |-----|-----|
+D    |-----|---2-|
+A    |-----|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram seventh">
+            <div class="chord-name">Si séptima (B7)</div>
+            <pre>
+        1        2
+E    |-----|---2-|
+B    |-----|-----|
+G    |-----|---2-|
+D    |---1-|-----|
+A    |-----|---2-|
+E    |-x---|-----|</pre>
+        </div>
+    </div>
+
+    <h3>Variaciones</h3>
+    <div class="chord-row">
+        <div class="chord-diagram variation">
+            <div class="chord-name">Do séptima (C7) - Variación</div>
+            <pre>
+     3        4         5
+E    |---3-|-----|-----|
+B    |-----|-----|---5-|
+G    |---3-|-----|-----|
+D    |-----|-----|---5-|
+A    |---3-|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram variation">
+            <div class="chord-name">Sol séptima (G7) - Variación</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |-----|-----|-----|
+G    |-----|-----|-----|
+D    |-----|-----|---3-|
+A    |-x---|-----|-----|
+E    |-----|-----|---3-|</pre>
+        </div>
+    </div>
+</div>
+
+  <!-- Acordes de Séptima Mayor -->
+<div class="chord-section">
+    <h2>Acordes de Séptima Mayor</h2>
+    <div class="chord-row">
+        <div class="chord-diagram major-seventh">
+            <div class="chord-name">Do séptima mayor (Cmaj7)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|-----|
+B    |-----|-----|-----|
+G    |-----|-----|-----|
+D    |-----|---2-|-----|
+A    |-----|-----|---3-|
+E    |-x---|-----|-----|</pre>
+        </div>
+        
+        <div class="chord-diagram major-seventh">
+            <div class="chord-name">Re séptima mayor (Dmaj7)</div>
+            <pre>
+    1        2         3
+E    |-----|---2-|-----|
+B    |-----|---2-|-----|
+G    |-----|-----|-----|
+D    |-----|---2-|-----|
+A    |-x---|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram major-seventh">
+            <div class="chord-name">Mi séptima mayor (Emaj7)</div>
+            <pre>
+    1        2         
+E    |-----|-----|
+B    |-----|-----|
+G    |---1-|-----|
+D    |---1-|-----|
+A    |-----|---2-|
+E    |-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram major-seventh">
+            <div class="chord-name">Fa séptima mayor (Fmaj7)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |---1-|-----|-----|
+G    |-----|---2-|-----|
+D    |-----|---2-|-----|
+A    |-----|-----|---3-|
+E    |---1-|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram major-seventh">
+            <div class="chord-name">Sol séptima mayor (Gmaj7)</div>
+            <pre>
+    1        2         3
+E    |-----|---2-|-----|
+B    |-----|-----|-----|
+G    |-----|-----|-----|
+D    |-----|-----|-----|
+A    |-----|---2-|-----|
+E    |-----|-----|---3-|</pre>
+        </div>
+
+        <div class="chord-diagram major-seventh">
+            <div class="chord-name">La séptima mayor (Amaj7)</div>
+            <pre>
+    1        2        
+E    |-----|-----|
+B    |-----|---2-|
+G    |---1-|-----|
+D    |-----|---2-|
+A    |-----|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram major-seventh">
+            <div class="chord-name">Si séptima mayor (Bmaj7)</div>
+            <pre>
+    1        2         3         4
+E    |-----|---2-|-----|-----|
+B    |-----|-----|-----|---4-|
+G    |-----|-----|---3-|-----|
+D    |-----|-----|-----|---4-|
+A    |-----|---2-|-----|-----|
+E    |-x---|-----|-----|-----|</pre>
+        </div>
+    </div>
+
+    <!-- Variaciones de Séptima Mayor -->
+    <h3>Variaciones</h3>
+    <div class="chord-row">
+        <div class="chord-diagram variation">
+            <div class="chord-name">Do séptima mayor (Cmaj7) - Variación</div>
+            <pre>
+    3        4         5
+E    |---3-|-----|-----|
+B    |-----|-----|---5-|
+G    |-----|---4-|-----|
+D    |-----|-----|---5-|
+A    |---3-|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram variation">
+            <div class="chord-name">Mi séptima mayor (Emaj7) - Variación</div>
+            <pre>
+    7        8         9
+E    |---7-|-----|-----|
+B    |-----|-----|---9-|
+G    |-----|---8-|-----|
+D    |-----|-----|---9-|
+A    |---7-|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram variation">
+            <div class="chord-name">Sol séptima mayor (Gmaj7) - Variación</div>
+            <pre>
+    3        4        
+E    |---3-|-----|
+B    |---3-|-----|
+G    |---3-|-----|
+D    |-----|---4-|
+A    |-x---|-----|
+E    |---3-|-----|</pre>
+        </div>
+    </div>
+</div>
+
+<!-- Acordes de Séptima Menor -->
+<div class="chord-section">
+    <h2>Acordes de Séptima Menor</h2>
+    <div class="chord-row">
+        <div class="chord-diagram minor-seventh">
+            <div class="chord-name">Do séptima menor (Cm7)</div>
+            <pre>
+    1        2         3         4         5
+E    |-----|-----|---3-|-----|-----|
+B    |-----|-----|-----|---4-|-----|
+G    |-----|-----|---3-|-----|-----|
+D    |-----|-----|-----|-----|---5-|
+A    |-----|-----|---3-|-----|-----|
+E    |-x---|-----|-----|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor-seventh">
+            <div class="chord-name">Re séptima menor (Dm7)</div>
+            <pre>
+    1        2        
+E    |---1-|-----|
+B    |---1-|-----|
+G    |-----|-----|
+D    |-----|---2-|
+A    |-x---|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor-seventh">
+            <div class="chord-name">Mi séptima menor (Em7)</div>
+            <pre>
+    1        2        
+E    |-----|-----|
+B    |-----|-----|
+G    |-----|-----|
+D    |-----|-----|
+A    |-----|---2-|
+E    |-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor-seventh">
+            <div class="chord-name">Fa séptima menor (Fm7)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |---1-|-----|-----|
+G    |---1-|-----|-----|
+D    |---1-|-----|-----|
+A    |-----|-----|---3-|
+E    |---1-|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor-seventh">
+            <div class="chord-name">Sol séptima menor (Gm7)</div>
+            <pre>
+    1        2         3         4         5
+E    |-----|-----|---3-|-----|-----|
+B    |-----|-----|---3-|-----|-----|
+G    |-----|-----|---3-|-----|-----|
+D    |-----|-----|---3-|-----|-----|
+A    |-----|-----|-----|-----|---5-|
+E    |-----|-----|---3-|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor-seventh">
+            <div class="chord-name">La séptima menor (Am7)</div>
+            <pre>
+    1        2        
+E    |-----|-----|
+B    |-----|---1-|
+G    |-----|-----|
+D    |-----|---2-|
+A    |-----|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram minor-seventh">
+            <div class="chord-name">Si séptima menor (Bm7)</div>
+            <pre>
+    1        2        
+E    |-----|---2-|
+B    |-----|-----|
+G    |-----|---2-|
+D    |-----|-----|
+A    |-----|---2-|
+E    |-x---|-----|</pre>
+        </div>
+    </div>
+
+    <!-- Variaciones de Séptima Menor -->
+    <h3>Variaciones</h3>
+    <div class="chord-row">
+        <div class="chord-diagram variation">
+            <div class="chord-name">La séptima menor (Am7) - Variación</div>
+            <pre>
+    1        2        
+E    |-x---|-----|
+B    |-----|---1-|
+G    |-----|-----|
+D    |-----|---2-|
+A    |-----|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram variation">
+            <div class="chord-name">Re séptima menor (Dm7) - Variación</div>
+            <pre>
+    1        2         3         4         5
+E    |-----|-----|---5-|-----|-----|
+B    |-----|-----|-----|-----|---6-|
+G    |-----|-----|---5-|-----|-----|
+D    |-----|-----|-----|-----|---7-|
+A    |-----|-----|---5-|-----|-----|
+E    |-x---|-----|-----|-----|-----|</pre>
+        </div>
+    </div>
+</div>
+   <!-- Acordes Sus2 -->
+<div class="chord-section">
+    <h2>Acordes Sus2</h2>
+    <div class="chord-row">
+        <div class="chord-diagram sus2">
+            <div class="chord-name">Do sus2 (Csus2)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|---3-|
+B    |-----|---1-|-----|
+G    |-----|-----|-----|
+D    |-----|-----|-----|
+A    |-----|-----|---3-|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram sus2">
+            <div class="chord-name">Re sus2 (Dsus2)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|-----|
+B    |-----|-----|---3-|
+G    |-----|---2-|-----|
+D    |-----|-----|-----|
+A    |-x---|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram sus2">
+            <div class="chord-name">Mi sus2 (Esus2)</div>
+            <pre>
+    1        2        
+E    |-----|---2-|
+B    |-----|-----|
+G    |-----|-----|
+D    |-----|---2-|
+A    |-----|---2-|
+E    |-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram sus2">
+            <div class="chord-name">Fa sus2 (Fsus2)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |---1-|-----|-----|
+G    |-----|-----|-----|
+D    |-----|-----|---3-|
+A    |-----|-----|---3-|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram sus2">
+            <div class="chord-name">Sol sus2 (Gsus2)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|---3-|
+B    |-----|-----|---3-|
+G    |-----|-----|-----|
+D    |-----|-----|-----|
+A    |-----|-----|-----|
+E    |-----|-----|---3-|</pre>
+        </div>
+
+        <div class="chord-diagram sus2">
+            <div class="chord-name">La sus2 (Asus2)</div>
+            <pre>
+    1        2        
+E    |-----|-----|
+B    |-----|-----|
+G    |-----|---2-|
+D    |-----|---2-|
+A    |-----|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram sus2">
+            <div class="chord-name">Si sus2 (Bsus2)</div>
+            <pre>
+    1        2         3         4
+E    |-----|---2-|-----|-----|
+B    |-----|---2-|-----|-----|
+G    |-----|-----|-----|---4-|
+D    |-----|-----|-----|---4-|
+A    |-----|---2-|-----|-----|
+E    |-x---|-----|-----|-----|</pre>
+        </div>
+    </div>
+</div>
+
+<!-- Acordes Sus4 -->
+<div class="chord-section">
+    <h2>Acordes Sus4</h2>
+    <div class="chord-row">
+        <div class="chord-diagram sus4">
+            <div class="chord-name">Do sus4 (Csus4)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |---1-|-----|-----|
+G    |-----|-----|-----|
+D    |-----|-----|---3-|
+A    |-----|-----|---3-|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram sus4">
+            <div class="chord-name">Re sus4 (Dsus4)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|---3-|
+B    |-----|-----|---3-|
+G    |-----|---2-|-----|
+D    |-----|-----|-----|
+A    |-x---|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram sus4">
+            <div class="chord-name">Mi sus4 (Esus4)</div>
+            <pre>
+    1        2        
+E    |-----|-----|
+B    |-----|-----|
+G    |-----|---2-|
+D    |-----|---2-|
+A    |-----|---2-|
+E    |-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram sus4">
+            <div class="chord-name">Fa sus4 (Fsus4)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |---1-|-----|-----|
+G    |-----|-----|---3-|
+D    |-----|-----|---3-|
+A    |-----|-----|---3-|
+E    |---1-|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram sus4">
+            <div class="chord-name">Sol sus4 (Gsus4)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|---3-|
+B    |-----|---1-|-----|
+G    |-----|-----|-----|
+D    |-----|-----|-----|
+A    |-----|-----|---3-|
+E    |-----|-----|---3-|</pre>
+        </div>
+
+        <div class="chord-diagram sus4">
+            <div class="chord-name">La sus4 (Asus4)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|-----|
+B    |-----|-----|---3-|
+G    |-----|---2-|-----|
+D    |-----|---2-|-----|
+A    |-----|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram sus4">
+            <div class="chord-name">Si sus4 (Bsus4)</div>
+            <pre>
+    1        2         3         4         5
+E    |-----|---2-|-----|-----|-----|
+B    |-----|-----|-----|-----|---5-|
+G    |-----|-----|-----|---4-|-----|
+D    |-----|-----|-----|---4-|-----|
+A    |-----|---2-|-----|-----|-----|
+E    |-x---|-----|-----|-----|-----|</pre>
+        </div>
+    </div>
+</div>
+
+<!-- Acordes Disminuidos -->
+<div class="chord-section">
+    <h2>Acordes Disminuidos</h2>
+    <div class="chord-row">
+        <div class="chord-diagram diminished">
+            <div class="chord-name">Do disminuido (C°)</div>
+            <pre>
+    1        2         3         4         5
+E    |-x---|-----|-----|-----|-----|
+B    |-----|-----|-----|---4-|-----|
+G    |-----|-----|-----|-----|---5-|
+D    |-----|-----|-----|---4-|-----|
+A    |-----|-----|---3-|-----|-----|
+E    |-x---|-----|-----|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram diminished">
+            <div class="chord-name">Re disminuido (D°)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |-----|-----|---3-|
+G    |-----|---1-|-----|
+D    |-----|-----|-----|
+A    |-x---|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram diminished">
+            <div class="chord-name">Mi disminuido (E°)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|---3-|
+B    |-----|---2-|-----|
+G    |-----|-----|---3-|
+D    |-----|---2-|-----|
+A    |-x---|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram diminished">
+            <div class="chord-name">Fa disminuido (F°)</div>
+            <pre>
+    1        2         3
+E    |-x---|-----|-----|
+B    |-x---|-----|-----|
+G    |---1-|-----|-----|
+D    |-----|-----|---3-|
+A    |-----|---2-|-----|
+E    |---1-|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram diminished">
+            <div class="chord-name">Sol disminuido (G°)</div>
+            <pre>
+    1        2         3         4         5
+E    |-x---|-----|-----|-----|-----|
+B    |-x---|-----|-----|-----|-----|
+G    |-----|-----|---3-|-----|-----|
+D    |-----|-----|-----|-----|---5-|
+A    |-----|-----|-----|---4-|-----|
+E    |-----|-----|---3-|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram diminished">
+            <div class="chord-name">La disminuido (A°)</div>
+            <pre>
+    1        2        
+E    |-----|---2-|
+B    |---1-|-----|
+G    |-----|---2-|
+D    |---1-|-----|
+A    |-----|-----|
+E    |-x---|-----|</pre>
+        </div>
+
+        <div class="chord-diagram diminished">
+            <div class="chord-name">Si disminuido (B°)</div>
+            <pre>
+    1        2         3         4
+E    |-----|-----|-----|---4-|
+B    |-----|-----|---3-|-----|
+G    |-----|-----|-----|---4-|
+D    |-----|-----|---3-|-----|
+A    |-----|---2-|-----|-----|
+E    |-x---|-----|-----|-----|</pre>
+        </div>
+    </div>
+</div>
+
+<!-- Acordes Aumentados -->
+<div class="chord-section">
+    <h2>Acordes Aumentados</h2>
+    <div class="chord-row">
+        <div class="chord-diagram augmented">
+            <div class="chord-name">Do aumentado (C+)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|-----|
+B    |-----|---1-|-----|
+G    |-----|---1-|-----|
+D    |-----|---2-|-----|
+A    |-----|-----|---3-|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram augmented">
+            <div class="chord-name">Re aumentado (D+)</div>
+            <pre>
+    1        2         3
+E    |-----|---2-|-----|
+B    |-----|-----|---3-|
+G    |-----|-----|---3-|
+D    |-----|-----|-----|
+A    |-x---|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram augmented">
+            <div class="chord-name">Mi aumentado (E+)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|-----|
+B    |-1---|-----|-----|
+G    |-1---|-----|-----|
+D    |-----|---2-|-----|
+A    |-----|-----|---3-|
+E    |-----|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram augmented">
+            <div class="chord-name">Fa aumentado (F+)</div>
+            <pre>
+    1        2         3         4
+E    |---1-|-----|-----|-----|
+B    |-----|---2-|-----|-----|
+G    |-----|---2-|-----|-----|
+D    |-----|-----|---3-|-----|
+A    |-----|-----|-----|---4-|
+E    |---1-|-----|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram augmented">
+            <div class="chord-name">Sol aumentado (G+)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|---3-|
+B    |-----|-----|-----|
+G    |-----|-----|-----|
+D    |--1--|-----|-----|
+A    |-----|---2-|-----|
+E    |-----|-----|---3-|</pre>
+        </div>
+
+        <div class="chord-diagram augmented">
+            <div class="chord-name">La aumentado (A+)</div>
+            <pre>
+    1        2         3
+E    |---1-|-----|-----|
+B    |-----|---2-|-----|
+G    |-----|---2-|-----|
+D    |-----|-----|---3-|
+A    |-----|-----|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+
+        <div class="chord-diagram augmented">
+            <div class="chord-name">Si aumentado (B+)</div>
+            <pre>
+    1        2         3
+E    |-----|-----|---3-|
+B    |-----|-----|-----|
+G    |-----|-----|-----|
+D    |--1--|-----|-----|
+A    |-----|---2-|-----|
+E    |-x---|-----|-----|</pre>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <!-- <p>&copy; 2025 Diccionario de Acordes con Diagramas. Todos los derechos reservados.</p> -->
+</footer>
+
+</body>
+</html>

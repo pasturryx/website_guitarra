@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Música Interactiva - Felipe Rodríguez</title>
+    <link rel="icon" href="ico/music5.ico" type="image/x-icon">
+    <style>
+        /* ... [Estilos anteriores sin cambios hasta sidebar] ... */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #0a0a0a;
+        }
+
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        video {
+            position: absolute;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .title-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            z-index: 1;
+        }
+
+        .title-container h1 {
+            color: white;
+            text-align: left;
+            margin: 0;
+            padding: 10px 20px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+       .content-container {
+    display: flex;
+    padding: 265px 20px 20px 200px; /* Cambiado */
+}
+
+.main-content {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-left: 20px;
+    margin-top: 20px; /* Añadido */
+}
+
+        .sidebar {
+            position: fixed;
+            left: 0; /* Cambiado de right a left */
+            top: 80px;
+            width: 180px;
+            background: rgba(0, 123, 255, 0.9);
+            padding: 15px;
+            height: calc(100vh - 100px);
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .menu-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px); /* Cambiado a positivo para mover hacia la derecha */
+        }
+
+        .sound-controls {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .sound-controls button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 0.9em;
+        }
+
+        .sound-controls button:hover {
+            background: #e0e0e0;
+        }
+
+        .volume-control {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .main-content h3 {
+            color: #007BFF;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+
+        .main-content p {
+            line-height: 1.8;
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="background-video" autoplay muted loop>
+            <source src="test.mp4" type="video/mp4">
+            Tu navegador no soporta video.
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <div class="title-container">
+        <h1>Bienvenido a la Página de Felipe Rodríguez</h1>
+    </div>
+
+    <div class="content-container">
+        <div class="sidebar">
+            <h2>Menú</h2>
+            <div class="menu-links">
+                <a href="intervalos_tonos.html">Notacion musical, Tonos e intervalos</a>
+                <a href="construccion_acordes.html">Construccion de acordes</a>
+                <a href="acordes.html">Diagrama de acordes</a>
+                <a href="acordes_imagenes.html">Diagrama de acordes2</a>
+                <!-- <a href="superguiaacordes.pdf">Guia todos los acordes</a> -->
+                    <a href="superguiaacordes.pdf" target="_blank">Guía todos los acordes</a>
+                <a href="guitarra_didactica.html">Guitarra Interactiva</a>
+                <a href="piano_didactico.html">Piano Interactivo</a>
+                <a href="escalas.html">Conformar Escalas</a>
+                <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas\src\dist/index.html">Círculo de Quintas</a></li> <!-- Nuevo enlace -->
+                 <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas2\dist/index.html">Círculo de Quintas2</a></li> <!-- Nuevo enlace -->
+                 <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas3/index.html">Círculo de Quintas3</a></li> <!-- Nuevo enlace -->
+                 <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas4\dist/index.html">Círculo de Quintas4</a></li> <!-- Nuevo enlace -->
+            </div>
+
+            <div class="sound-controls">
+                <button id="mute-button">Activar sonido</button>
+                <input 
+                    type="range" 
+                    id="volume-control" 
+                    class="volume-control"
+                    min="0" 
+                    max="1" 
+                    step="0.1" 
+                    value="0"
+                >
+            </div>
+        </div>
+
+        <div class="main-content">
+            <h3>Sobre mí</h3>
+            <p>
+                Hola, soy Felipe Rodríguez, tengo 31 años y soy de Arica, Chile. 
+                Soy egresado de Traductor e Intérprete de la Universidad Arturo Prat.
+            <!-- </p> -->
+            <!-- <p> -->
+                Actualmente estoy cursando el último año de Trabajo Social en la 
+                Universidad de Tarapacá, Arica.
+            <!-- </p> -->
+            <!-- <p> -->
+                Me apasiona la música y esta página fue creada como una guía personal. 
+                A medida que la fui desarrollando, me di cuenta de que debía compartirla 
+                con el público, promoviendo el conocimiento libre.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const video = document.getElementById('background-video');
+        const muteButton = document.getElementById('mute-button');
+        const volumeControl = document.getElementById('volume-control');
+
+        muteButton.addEventListener('click', () => {
+            if (video.muted) {
+                video.muted = false;
+                muteButton.textContent = 'Silenciar';
+            } else {
+                video.muted = true;
+                muteButton.textContent = 'Activar sonido';
+            }
+        });
+
+        volumeControl.addEventListener('input', () => {
+            video.volume = volumeControl.value;
+        });
+    </script>
+</body>
+</html>

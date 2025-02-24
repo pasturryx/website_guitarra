@@ -1,0 +1,385 @@
+@charset "UTF-8";
+* {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background: #000;
+  color: #fff;
+}
+
+h1 {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  width: auto;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.03em;
+  font-family: Lato;
+  font-size: 40px;
+  transform: translateX(-50%);
+  transition: top 0.3s ease 0.3s;
+}
+h1.active {
+  top: -100%;
+}
+
+.component {
+  position: relative;
+  margin-bottom: 3em;
+  height: 15em;
+  background: rgba(0, 0, 0, 0.05);
+  font-family: Lato, Arial, sans-serif;
+}
+.component > h2 {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 12em;
+  opacity: 0.1;
+  cursor: default;
+}
+
+#mode {
+  position: absolute;
+  top: -100%;
+  right: 0;
+  height: auto;
+  width: 500px;
+  transform: translate(-25%, -50%);
+  transition: top 0.3s ease 0.3s;
+}
+#mode .major,
+#mode .minor {
+  display: none;
+  justify-content: space-around;
+  width: 100%;
+  opacity: 0;
+}
+#mode .major.active,
+#mode .minor.active {
+  display: flex;
+  position: absolute;
+  top: 0;
+  opacity: 1;
+  background-color: rgba(22, 22, 22, 0.5);
+}
+#mode .major span,
+#mode .minor span {
+  font-size: 2.3em;
+}
+#mode .major span.rel-maj,
+#mode .minor span.rel-maj {
+  color: #E94545;
+}
+#mode .major span.rel-min,
+#mode .minor span.rel-min {
+  color: #3BB1F5;
+}
+#mode .major span.dim:after,
+#mode .minor span.dim:after {
+  content: "°";
+}
+#mode.active {
+  top: 100%;
+}
+
+#scale {
+  position: absolute;
+  top: 75px;
+  width: 480px;
+  display: inline-block;
+  display: flex;
+  float: left;
+  justify-content: space-around;
+}
+#scale span {
+  width: auto;
+  font-size: 2.3em;
+}
+
+#mode_type {
+  position: absolute;
+  display: inline-block;
+  display: flex;
+  width: auto;
+  float: left;
+  justify-content: space-around;
+  bottom: 50px;
+  right: 150px;
+  transition: all 0.3s ease 0.3s;
+}
+#mode_type li {
+  padding: 0.6em;
+  font-size: 34px;
+}
+#mode_type li:hover {
+  cursor: pointer;
+}
+#mode_type #major.active {
+  background-color: #E94545;
+}
+#mode_type #minor.active {
+  background-color: #3BB1F5;
+}
+
+.cn-button {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 11;
+  margin-top: -2.25em;
+  margin-left: -2.25em;
+  padding-top: 0;
+  width: 4.5em;
+  height: 4.5em;
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, #52be7f, #000 80%);
+  box-shadow: inset 0 0 10px 3px rgba(0, 0, 0, 0.7);
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.cn-button:focus {
+  outline: none;
+}
+
+.csstransforms .cn-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 10;
+  margin-top: -13em;
+  margin-left: -13.5em;
+  width: 27em;
+  height: 27em;
+  border-radius: 50%;
+  background: transparent;
+  opacity: 0;
+  transition: all 0.3s ease 0.3s;
+  transform: scale(0.1);
+  pointer-events: none;
+  overflow: hidden;
+}
+.csstransforms .cn-wrapper:after {
+  content: ".";
+  display: block;
+  font-size: 2em;
+  width: 6.2em;
+  height: 6.2em;
+  position: absolute;
+  left: 50%;
+  margin-left: -3.1em;
+  top: 50%;
+  margin-top: -3.1em;
+  border-radius: 50%;
+  z-index: 10;
+  color: transparent;
+}
+.csstransforms .cn-wrapper #keys.major .key.active a {
+  background: radial-gradient(transparent 20%, #E94545 50%);
+}
+.csstransforms .cn-wrapper #keys.minor .key.active a {
+  background: radial-gradient(transparent 20%, #3BB1F5 50%);
+}
+.csstransforms .cn-wrapper li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  margin-top: -1.3em;
+  margin-left: -10em;
+  width: 10em;
+  height: 10em;
+  font-size: 1.5em;
+  transition: all 0.3s ease;
+  transform: rotate(76deg) skew(60deg);
+  transform-origin: 100% 100%;
+  pointer-events: none;
+}
+.csstransforms .cn-wrapper li.flat span:after {
+  content: "♭";
+}
+.csstransforms .cn-wrapper li.sharp span:after {
+  content: "♯";
+}
+.csstransforms .cn-wrapper li span {
+  position: relative;
+  top: 2.2em;
+  display: block;
+  font-size: 0.6em;
+  font-weight: 700;
+}
+.csstransforms .cn-wrapper li a {
+  position: absolute;
+  right: -7.25em;
+  bottom: -7.25em;
+  display: block;
+  width: 14.5em;
+  height: 14.5em;
+  border-radius: 50%;
+  background: #429a67;
+  background: radial-gradient(transparent 68%, #429a67 32%);
+  color: #fff;
+  border: 2px solid #429a67;
+  box-shadow: 2px 0 30px 0 #429a67;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 2;
+  transform: skew(-60deg) rotate(-75deg) scale(1);
+  backface-visibility: hidden;
+  pointer-events: auto;
+}
+.csstransforms .cn-wrapper li a:hover {
+  background: radial-gradient(transparent 20%, #52be7f 50%);
+}
+.csstransforms .cn-wrapper li a.active {
+  background: radial-gradient(transparent 35%, #E94545 35%);
+}
+.csstransforms .opened-nav {
+  border-radius: 50%;
+  opacity: 1;
+  transition: all 0.3s ease;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.csstransforms .opened-nav li {
+  transition: all 0.3s ease 0.3s;
+}
+.csstransforms .opened-nav li:nth-child(1) {
+  transform: rotate(45deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(2) {
+  transform: rotate(75deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(3) {
+  transform: rotate(105deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(4) {
+  transform: rotate(135deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(5) {
+  transform: rotate(165deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(6) {
+  transform: rotate(195deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(7) {
+  transform: rotate(225deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(8) {
+  transform: rotate(255deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(9) {
+  transform: rotate(285deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(10) {
+  transform: rotate(315deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(11) {
+  transform: rotate(345deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(12) {
+  transform: rotate(375deg) skew(60deg);
+}
+
+.no-csstransforms .cn-wrapper {
+  overflow: hidden;
+  margin: 10em auto;
+  padding: 0.5em;
+  text-align: center;
+}
+.no-csstransforms .cn-wrapper ul {
+  display: inline-block;
+}
+.no-csstransforms .cn-wrapper li {
+  float: left;
+  width: 5em;
+  height: 5em;
+  background-color: #fff;
+  text-align: center;
+  font-size: 1em;
+  line-height: 5em;
+}
+.no-csstransforms .cn-wrapper li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+.no-csstransforms .cn-wrapper li a:hover {
+  background-color: #f8f8f8;
+}
+.no-csstransforms .cn-wrapper li a:active {
+  background-color: #f8f8f8;
+}
+.no-csstransforms .cn-wrapper li a:focus {
+  background-color: #f8f8f8;
+}
+.no-csstransforms .cn-wrapper li.active a {
+  background-color: #6f325c;
+  color: #fff;
+}
+.no-csstransforms .cn-button {
+  display: none;
+}
+
+@media only screen and (max-width: 1650px) {
+  #mode {
+    right: -5%;
+  }
+}
+@media only screen and (max-width: 620px) {
+  .no-csstransforms li {
+    width: 4em;
+    height: 4em;
+    line-height: 4em;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .no-ccstransforms .cn-wrapper {
+    padding: 0.5em;
+  }
+
+  .no-csstransforms .cn-wrapper li {
+    width: 4em;
+    height: 4em;
+    font-size: 0.9em;
+    line-height: 4em;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .cn-button {
+    font-size: 1em;
+  }
+
+  .csstransforms .cn-wrapper {
+    font-size: 0.68em;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .no-csstransforms .cn-wrapper li {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+  }
+}

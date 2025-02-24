@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Piano Interactivo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Estilos base */
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+    }
+
+    .controls {
+      margin: 20px;
+    }
+
+    .piano-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 20px;
+      background-color: #333;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .key {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      padding-bottom: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .white-key {
+      width: 40px;
+      height: 200px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      margin: 0 2px;
+    }
+
+    .black-key {
+      width: 25px;
+      height: 120px;
+      background-color: black;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      margin: 0 -12.5px;
+      z-index: 1;
+      color: white;
+    }
+
+    .key.active {
+      background-color: #ffcc00;
+    }
+
+    .notes-reference {
+      margin: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-width: 800px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .note-box {
+      padding: 5px 10px;
+      color: black;
+      border-radius: 3px;
+      font-weight: bold;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .settings {
+      margin: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .settings label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .position-info {
+      margin: 20px;
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .tts-warning {
+      margin: 10px;
+      padding: 10px;
+      background: #ffcc00;
+      border-radius: 5px;
+      color: #000;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="controls">
+    <button id="toggleMarking">Marcar Notas</button>
+    <button id="clearMarkers">Limpiar</button>
+    <button id="stopTTS">Detener Dictado</button>
+  </div>
+  <div class="settings">
+    <label>
+      <input type="checkbox" id="englishNotation" checked> Notación Inglesa (A, B, C, D, E, F, G)
+    </label>
+    <label>
+      <input type="checkbox" id="spanishNotation"> Notación en Español (La, Si, Do, Re, Mi, Fa, Sol)
+    </label>
+    <label>
+      <input type="checkbox" id="multiSelect"> Seleccionar más de una nota
+    </label>
+    <label>
+      <input type="checkbox" id="namePositions"> Nombrar posiciones
+    </label>
+    <label>
+      <input type="checkbox" id="enableTTS"> Dictar notas seleccionadas
+    </label>
+  </div>
+  <div class="notes-reference" id="notesReference"></div>
+  <div class="piano-container" id="pianoContainer"></div>
+  <div class="position-info" id="positionInfo"></div>
+  <div class="tts-warning" id="ttsWarning" style="display: none;">Tu navegador no soporta la función de dictado.</div>
+
+  <script>
+    // Definición de notas y colores
+const notesEnglish = ['C', 'C#/Db', 'D', 'D#/Eb', 'E', 'F', 'F#/Gb', 'G', 'G#/Ab', 'A', 'A#/Bb', 'B'];
+const notesSpanish = ['Do', 'Do#/Reb', 'Re', 'Re#/Mib', 'Mi', 'Fa', 'Fa#/Solb', 'Sol', 'Sol#/Lab', 'La', 'La#/Sib', 'Si'];
+const noteColors = {
+  'C': '#FF0000',
+  'C#/Db': '#FF69B4',
+  'D': '#00FF00',
+  'D#/Eb': '#FFA500',
+  'E': '#0000FF',
+  'F': '#008000',
+  'F#/Gb': '#00FF00',
+  'G': '#8B008B',
+  'G#/Ab': '#4169E1',
+  'A': '#FFD700',
+  'A#/Bb': '#FF4500',
+  'B': '#00FFFF'
+};
+
+// Configuración del piano
+const octaves = 3; // 3 octavas
+let isMarking = false;
+let isEnglishNotation = true;
+let isMultiSelect = false;
+let isNamingPositions = false;
+let isTTSEnabled = false;
+let selectedNotes = new Set();
+
+// Verificar si el navegador soporta SpeechSynthesis
+const isSpeechSynthesisSupported = 'speechSynthesis' in window;
+if (!isSpeechSynthesisSupported) {
+  document.getElementById('ttsWarning').style.display = 'block';
+}
+
+// Función para dictar texto
+function speak(text) {
+  if (isSpeechSynthesisSupported && isTTSEnabled) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'es-ES'; // Idioma español
+    speechSynthesis.speak(utterance);
+  }
+}
+
+// Función para detener el dictado
+function stopTTS() {
+  if (isSpeechSynthesisSupported) {
+    speechSynthesis.cancel();
+  }
+}
+
+// Función para crear el piano
+function createPiano() {
+  const pianoContainer = document.getElementById('pianoContainer');
+  pianoContainer.innerHTML = ''; // Limpiar el piano existente
+
+  const notes = isEnglishNotation ? notesEnglish : notesSpanish;
+
+  for (let octave = 0; octave < octaves; octave++) {
+    notes.forEach((note, index) => {
+      const key = document.createElement('div');
+      key.className = 'key';
+      key.classList.add(index % 12 === 1 || index % 12 === 3 || index % 12 === 6 || index % 12 === 8 || index % 12 === 10 ? 'black-key' : 'white-key');
+      key.textContent = note;
+      key.dataset.note = note;
+      key.dataset.position = (octave * 12) + index + 1; // Posición de la tecla
+      key.addEventListener('click', () => handleKeyClick(note, key.dataset.position));
+      pianoContainer.appendChild(key);
+    });
+  }
+}
+
+// Función para manejar el clic en una tecla
+function handleKeyClick(note, position) {
+  if (isMarking) {
+    const key = document.querySelector(`.key[data-position="${position}"]`);
+    if (key.classList.contains('active')) {
+      key.classList.remove('active');
+      selectedNotes.delete(note);
+      key.style.backgroundColor = key.classList.contains('black-key') ? 'black' : 'white';
+    } else {
+      if (!isMultiSelect) {
+        clearMarkers();
+      }
+      key.classList.add('active');
+      selectedNotes.add(note);
+      const englishNote = isEnglishNotation ? note : notesEnglish[notesSpanish.indexOf(note)];
+      key.style.backgroundColor = noteColors[englishNote.replace(/#\/.+/, '')];
+    }
+
+    if (isNamingPositions) {
+      const positionInfo = document.getElementById('positionInfo');
+      if (isMultiSelect) {
+        let message = `Notas seleccionadas: `;
+        selectedNotes.forEach(note => {
+          const keys = document.querySelectorAll(`.key[data-note="${note}"].active`);
+          keys.forEach(key => {
+            message += `${note} (Tecla ${key.dataset.position}, ${key.classList.contains('black-key') ? 'negra' : 'blanca'}), `;
+          });
+        });
+        positionInfo.textContent = message.slice(0, -2); // Eliminar la última coma
+        speak(message.slice(0, -2)); // Dictar el mensaje
+      } else {
+        const message = `Nota seleccionada: ${note} (Tecla ${position}, ${key.classList.contains('black-key') ? 'negra' : 'blanca'})`;
+        positionInfo.textContent = message;
+        speak(message); // Dictar el mensaje
+      }
+    }
+  }
+}
+
+// Función para crear la referencia de notas
+function createNotesReference() {
+  const reference = document.getElementById('notesReference');
+  reference.innerHTML = ''; // Limpiar referencias existentes
+  const notes = isEnglishNotation ? notesEnglish : notesSpanish;
+  notes.forEach(note => {
+    const noteBox = document.createElement('div');
+    noteBox.className = 'note-box';
+    noteBox.textContent = note;
+    const englishNote = isEnglishNotation ? note : notesEnglish[notesSpanish.indexOf(note)];
+    noteBox.style.backgroundColor = noteColors[englishNote.replace(/#\/.+/, '')];
+    noteBox.addEventListener('click', () => highlightNote(note));
+    reference.appendChild(noteBox);
+  });
+}
+
+// Función para resaltar una nota en el piano
+function highlightNote(selectedNote) {
+  if (!isMultiSelect) {
+    clearMarkers();
+  }
+  selectedNotes.add(selectedNote);
+
+  const keys = document.querySelectorAll(`.key[data-note="${selectedNote}"]`);
+  keys.forEach(key => {
+    key.classList.add('active');
+    const englishNote = isEnglishNotation ? selectedNote : notesEnglish[notesSpanish.indexOf(selectedNote)];
+    key.style.backgroundColor = noteColors[englishNote.replace(/#\/.+/, '')];
+  });
+
+  if (isNamingPositions) {
+    const positionInfo = document.getElementById('positionInfo');
+    let message = `Notas seleccionadas: `;
+    selectedNotes.forEach(note => {
+      const keys = document.querySelectorAll(`.key[data-note="${note}"].active`);
+      keys.forEach(key => {
+        message += `${note} (Tecla ${key.dataset.position}, ${key.classList.contains('black-key') ? 'negra' : 'blanca'}), `;
+      });
+    });
+    positionInfo.textContent = message.slice(0, -2); // Eliminar la última coma
+    speak(message.slice(0, -2)); // Dictar el mensaje
+  }
+}
+
+// Función para limpiar las marcas
+function clearMarkers() {
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => {
+    key.classList.remove('active');
+    key.style.backgroundColor = key.classList.contains('black-key') ? 'black' : 'white';
+  });
+  selectedNotes.clear();
+  document.getElementById('positionInfo').textContent = '';
+}
+
+// Inicialización y event listeners
+document.addEventListener('DOMContentLoaded', () => {
+  createNotesReference();
+  createPiano();
+
+  const toggleButton = document.getElementById('toggleMarking');
+  const clearButton = document.getElementById('clearMarkers');
+  const stopTTSButton = document.getElementById('stopTTS');
+  const englishNotationCheckbox = document.getElementById('englishNotation');
+  const spanishNotationCheckbox = document.getElementById('spanishNotation');
+  const multiSelectCheckbox = document.getElementById('multiSelect');
+  const namePositionsCheckbox = document.getElementById('namePositions');
+  const enableTTSCheckbox = document.getElementById('enableTTS');
+
+  toggleButton.addEventListener('click', () => {
+    isMarking = !isMarking;
+    toggleButton.textContent = isMarking ? 'Dejar de Marcar' : 'Marcar Notas';
+  });
+
+  clearButton.addEventListener('click', clearMarkers);
+
+  stopTTSButton.addEventListener('click', stopTTS);
+
+  englishNotationCheckbox.addEventListener('change', () => {
+    if (englishNotationCheckbox.checked) {
+      spanishNotationCheckbox.checked = false;
+      isEnglishNotation = true;
+      createNotesReference();
+      createPiano();
+    }
+  });
+
+  spanishNotationCheckbox.addEventListener('change', () => {
+    if (spanishNotationCheckbox.checked) {
+      englishNotationCheckbox.checked = false;
+      isEnglishNotation = false;
+      createNotesReference();
+      createPiano();
+    }
+  });
+
+  multiSelectCheckbox.addEventListener('change', () => {
+    isMultiSelect = multiSelectCheckbox.checked;
+    if (!isMultiSelect) {
+      clearMarkers();
+    }
+  });
+
+  namePositionsCheckbox.addEventListener('change', () => {
+    isNamingPositions = namePositionsCheckbox.checked;
+    if (!isNamingPositions) {
+      document.getElementById('positionInfo').textContent = '';
+    }
+  });
+
+  enableTTSCheckbox.addEventListener('change', () => {
+    isTTSEnabled = enableTTSCheckbox.checked;
+  });
+});
+  </script>
+</body>
+
+</html>

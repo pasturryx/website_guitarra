@@ -1,0 +1,486 @@
+@charset "UTF-8";
+* {
+  position: relative;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background: #000;
+  color: #fff;
+}
+
+h1 {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  width: auto;
+  text-transform: uppercase;
+  text-align: center;
+  letter-spacing: 0.03em;
+  font-family: Lato;
+  font-size: 40px;
+  transform: translateX(-50%);
+  transition: top 0.3s ease 0.3s;
+}
+h1.active {
+  top: -100%;
+}
+
+.component {
+  position: relative;
+  margin-bottom: 3em;
+  height: 15em;
+  background: rgba(0, 0, 0, 0.05);
+  font-family: Lato, Arial, sans-serif;
+}
+.component > h2 {
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+  text-align: center;
+  white-space: nowrap;
+  font-weight: 300;
+  font-style: italic;
+  font-size: 12em;
+  opacity: 0.1;
+  cursor: default;
+}
+
+/* Reemplaza los estilos existentes del #mode */
+#mode {
+    position: fixed; /* Cambiado de absolute a fixed */
+    bottom: 20px; /* Posicionado en la parte inferior */
+    left: 50%; /* Centrado horizontalmente */
+    transform: translateX(-50%); /* Centrado preciso */
+    height: auto;
+    width: 500px;
+    transition: opacity 0.3s ease;
+    z-index: 100; /* Asegura que esté por encima de otros elementos */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+    padding: 15px;
+    border-radius: 8px;
+}
+
+#mode .major,
+#mode .minor {
+    display: none;
+    justify-content: space-around;
+    width: 100%;
+    opacity: 0;
+    padding: 10px 0;
+}
+
+#mode .major.active,
+#mode .minor.active {
+    display: flex;
+    opacity: 1;
+    position: relative; /* Cambiado de absolute */
+    top: 0;
+    background-color: transparent;
+}
+
+/* Actualiza el scale para que se muestre debajo de los grados */
+#scale {
+    position: relative; /* Cambiado de absolute */
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Actualiza el mode_type para que se muestre en la parte superior */
+#mode_type {
+    position: relative; /* Cambiado de absolute */
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+/* Ajusta el espaciado y tamaño de los botones Major/Minor */
+#mode_type li {
+    padding: 5px 15px;
+    font-size: 1.2em;
+    border-radius: 4px;
+}
+/*colores  relativos grados*/
+#mode .major span.rel-min {
+    color: #3BB1F5; /* Color azul para el grado vi en modo mayor */
+}
+
+#mode .minor span.rel-maj {
+    color: #E94545; /* Color rojo para el grado III en modo menor */
+}
+
+/* Mantener los estilos existentes para los grados diminutos */
+#mode .major span.dim:after,
+#mode .minor span.dim:after {
+    content: "°";
+}
+#mode_type li:hover {
+  cursor: pointer;
+}
+#mode_type #major.active {
+  background-color: #E94545;
+}
+#mode_type #minor.active {
+  background-color: #3BB1F5;
+}
+
+.cn-button {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 11;
+  margin-top: -2.25em;
+  margin-left: -2.25em;
+  padding-top: 0;
+  width: 4.5em;
+  height: 4.5em;
+  border: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, #52be7f, #000 80%);
+  box-shadow: inset 0 0 10px 3px rgba(0, 0, 0, 0.7);
+  color: #fff;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.cn-button:focus {
+  outline: none;
+}
+
+.csstransforms .cn-wrapper {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 10;
+  margin-top: -13em;
+  margin-left: -13.5em;
+  width: 27em;
+  height: 27em;
+  border-radius: 50%;
+  background: transparent;
+  opacity: 0;
+  transition: all 0.3s ease 0.3s;
+  transform: scale(0.1);
+  pointer-events: none;
+  overflow: hidden;
+}
+.csstransforms .cn-wrapper:after {
+  content: ".";
+  display: block;
+  font-size: 2em;
+  width: 6.2em;
+  height: 6.2em;
+  position: absolute;
+  left: 50%;
+  margin-left: -3.1em;
+  top: 50%;
+  margin-top: -3.1em;
+  border-radius: 50%;
+  z-index: 10;
+  color: transparent;
+}
+.csstransforms .cn-wrapper #keys.major .key.active a {
+  background: radial-gradient(transparent 20%, #E94545 50%);
+}
+.csstransforms .cn-wrapper #keys.minor .key.active a {
+  background: radial-gradient(transparent 20%, #3BB1F5 50%);
+}
+.csstransforms .cn-wrapper li {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  overflow: hidden;
+  margin-top: -1.3em;
+  margin-left: -10em;
+  width: 10em;
+  height: 10em;
+  font-size: 1.5em;
+  transition: all 0.3s ease;
+  transform: rotate(76deg) skew(60deg);
+  transform-origin: 100% 100%;
+  pointer-events: none;
+}
+.csstransforms .cn-wrapper li.flat span:after {
+  content: "♭";
+}
+.csstransforms .cn-wrapper li.sharp span:after {
+  content: "♯";
+}
+.csstransforms .cn-wrapper li span {
+  position: relative;
+  top: 2.2em;
+  display: block;
+  font-size: 0.6em;
+  font-weight: 700;
+}
+.csstransforms .cn-wrapper li a {
+  position: absolute;
+  right: -7.25em;
+  bottom: -7.25em;
+  display: block;
+  width: 14.5em;
+  height: 14.5em;
+  border-radius: 50%;
+  background: #429a67;
+  background: radial-gradient(transparent 68%, #429a67 32%);
+  color: #fff;
+  border: 2px solid #429a67;
+  box-shadow: 2px 0 30px 0 #429a67;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.2em;
+  line-height: 2;
+  transform: skew(-60deg) rotate(-75deg) scale(1);
+  backface-visibility: hidden;
+  pointer-events: auto;
+}
+.csstransforms .cn-wrapper li a:hover {
+  background: radial-gradient(transparent 20%, #52be7f 50%);
+}
+.csstransforms .cn-wrapper li a.active {
+  background: radial-gradient(transparent 35%, #E94545 35%);
+}
+.csstransforms .opened-nav {
+  border-radius: 50%;
+  opacity: 1;
+  transition: all 0.3s ease;
+  transform: scale(1);
+  pointer-events: auto;
+}
+.csstransforms .opened-nav li {
+  transition: all 0.3s ease 0.3s;
+}
+.csstransforms .opened-nav li:nth-child(1) {
+  transform: rotate(45deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(2) {
+  transform: rotate(75deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(3) {
+  transform: rotate(105deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(4) {
+  transform: rotate(135deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(5) {
+  transform: rotate(165deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(6) {
+  transform: rotate(195deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(7) {
+  transform: rotate(225deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(8) {
+  transform: rotate(255deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(9) {
+  transform: rotate(285deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(10) {
+  transform: rotate(315deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(11) {
+  transform: rotate(345deg) skew(60deg);
+}
+.csstransforms .opened-nav li:nth-child(12) {
+  transform: rotate(375deg) skew(60deg);
+}
+
+.no-csstransforms .cn-wrapper {
+  overflow: hidden;
+  margin: 10em auto;
+  padding: 0.5em;
+  text-align: center;
+}
+.no-csstransforms .cn-wrapper ul {
+  display: inline-block;
+}
+.no-csstransforms .cn-wrapper li {
+  float: left;
+  width: 5em;
+  height: 5em;
+  background-color: #fff;
+  text-align: center;
+  font-size: 1em;
+  line-height: 5em;
+}
+.no-csstransforms .cn-wrapper li a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+.no-csstransforms .cn-wrapper li a:hover {
+  background-color: #f8f8f8;
+}
+.no-csstransforms .cn-wrapper li a:active {
+  background-color: #f8f8f8;
+}
+.no-csstransforms .cn-wrapper li a:focus {
+  background-color: #f8f8f8;
+}
+.no-csstransforms .cn-wrapper li.active a {
+  background-color: #6f325c;
+  color: #fff;
+}
+.no-csstransforms .cn-button {
+  display: none;
+}
+
+@media only screen and (max-width: 1650px) {
+  #mode {
+    right: -5%;
+  }
+}
+@media only screen and (max-width: 620px) {
+  .no-csstransforms li {
+    width: 4em;
+    height: 4em;
+    line-height: 4em;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .no-ccstransforms .cn-wrapper {
+    padding: 0.5em;
+  }
+
+  .no-csstransforms .cn-wrapper li {
+    width: 4em;
+    height: 4em;
+    font-size: 0.9em;
+    line-height: 4em;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .cn-button {
+    font-size: 1em;
+  }
+
+  .csstransforms .cn-wrapper {
+    font-size: 0.68em;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .no-csstransforms .cn-wrapper li {
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+  }
+}
+/*agregado relativos*/
+#relative-chords {
+    position: absolute;
+    bottom: -210px;
+    left: 50%;
+    transform: translateX(-30%);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#chords-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.chord {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 1.2em;
+}
+/**/
+/* ... [mantener todo el CSS existente hasta el final] ... */
+
+/* Nuevos estilos para las escalas relativas */
+/* Modificar los estilos del relative-scales */
+#relative-scales {
+    position: fixed; /* Cambiado de absolute a fixed */
+    bottom: 20px;
+    left: 20px; /* Posicionado en la esquina inferior izquierda */
+    transform: none; /* Eliminamos el transform que centraba */
+    width: 300px; /* Ancho más pequeño */
+    max-width: 300px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 5; /* Menor z-index para no interferir con el círculo */
+    pointer-events: none; /* Permite hacer clic a través del contenedor */
+}
+
+.scale-display {
+    text-align: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    transform: scale(0.9); /* Hace los elementos un poco más pequeños */
+}
+
+.scale-display h3 {
+    margin-bottom: 8px;
+    color: #fff;
+    font-size: 1em; /* Tamaño de fuente más pequeño */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.scale-degrees {
+    color: #aaa;
+    margin-bottom: 6px;
+    font-size: 0.9em; /* Tamaño de fuente más pequeño */
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+
+.scale-notes {
+    color: #fff;
+    font-size: 1em; /* Tamaño de fuente más pequeño */
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
+}
+
+.scale-display.relative {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 8px;
+    padding-top: 12px;
+}
+
+/* Asegurar que el círculo de quintas esté por encima */
+.cn-wrapper {
+    z-index: 10 !important;
+}
+
+.cn-button {
+    z-index: 11 !important;
+}
+
+#mode {
+    z-index: 10 !important;
+}
+

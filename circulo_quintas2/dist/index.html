@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Circle of Fifths</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+  
+<!-- partial:index.partial.html -->
+<h1>Circle of Fifths</h1>
+
+<div class="component">
+  <!-- Start Nav Structure -->
+  <button class="cn-button" id="cn-button">+</button>
+
+  <div class="cn-wrapper" id="cn-wrapper">
+
+    <ul id="keys" class="major">
+      <li class="key"><a href="#"><span>F</span></a></li>
+      <li class="key active"><a href="#"><span>C</span></a></li>
+      <li class="key"><a href="#"><span>G</span></a></li>
+      <li class="key"><a href="#"><span>D</span></a></li>
+      <li class="key"><a href="#"><span>A</span></a></li>
+      <li class="key"><a href="#"><span>E</span></a></li>
+      <li class="key"><a href="#"><span>B</span></a></li>
+      <li class="key sharp"><a href="#"><span>F</span></a></li>
+      <li class="key flat"><a href="#"><span>B</span></a></li>
+      <li class="key flat"><a href="#"><span>E</span></a></li>
+      <li class="key flat"><a href="#"><span>A</span></a></li>
+      <li class="key flat"><a href="#"><span>D</span></a></li>
+    </ul>
+  </div>
+  <div id="cn-overlay" class="cn-overlay"></div>
+
+  <div id="mode">
+    <!-- Defaults to major -->
+    <div class="major active">
+      <span>I</span>
+      <span>ii</span>
+      <span>iii</span>
+      <span>IV</span>
+      <span>V</span>
+      <span class="rel-min">vi</span>
+      <span class="dim">vii</span>
+    </div>
+    <div class="minor">
+      <span>i</span>
+      <span class="dim">ii</span>
+      <span class="rel-maj">III</span>
+      <span>iv</span>
+      <span>v</span>
+      <span>VI</span>
+      <span>VII</span>
+    </div>
+
+    <span id="scale"></span>
+    <ul id="mode_type">
+      <li id="major" class="active">Major</li>
+      <li id="minor">Minor</li>
+    </ul>
+  </div>
+
+    <!-- Nuevo contenedor para las escalas relativas -->
+  <div id="relative-scales"></div>
+</div>
+
+
+  <!-- End Nav Structure -->
+</div>
+<!-- partial -->
+  <!-- <script src='//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script> -->
+<!-- <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script><script  src="./script.js"></script> -->
+<!-- Actualiza Modernizr y jQuery a sus últimas versiones -->
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/3.11.7/modernizr.min.js'></script> -->
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script> -->
+<script src="./modernizr.min.js"></script>
+<script src="./jquery-3.7.1.min.js"></script>
+<script src="./script.js"></script>
+
+</body>
+</html>

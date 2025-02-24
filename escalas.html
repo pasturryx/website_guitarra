@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Práctica de Escalas Musicales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0f8ff;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .scale-container {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        .note-input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .note {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: white;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* Colores para las notas naturales */
+        [class*="note-C"], 
+        [class*="note-Do"] { background-color: #FF0000; } /* Rojo */
+        [class*="note-D"], 
+        [class*="note-Re"] { background-color: #00FF00; } /* Verde */
+        [class*="note-E"], 
+        [class*="note-Mi"] { background-color: #0000FF; } /* Azul */
+        [class*="note-F"], 
+        [class*="note-Fa"] { background-color: #008000; } /* Verde oscuro */
+        [class*="note-G"], 
+        [class*="note-Sol"] { background-color: #8B008B; } /* Violeta */
+        [class*="note-A"], 
+        [class*="note-La"] { background-color: #FFD700; } /* Amarillo */
+        [class*="note-B"], 
+        [class*="note-Si"] { background-color: #00FFFF; } /* Cian */
+
+        select {
+            padding: 5px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+        .feedback {
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+        .correct { color: green; }
+        .incorrect { color: red; }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .scale-type {
+            margin: 20px 0;
+        }
+        .scale-type select {
+            padding: 8px;
+            font-size: 1em;
+        }
+        .score {
+            font-size: 1.2em;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .solution-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            display: none;
+        }
+        .solution-box h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .solution-scale {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+        .solution-note {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .solution-interval {
+            color: #666;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+        .show-solution {
+            background-color: #3498db;
+        }
+        .show-solution:hover {
+            background-color: #2980b9;
+        }
+        .notation-options {
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        .notation-option {
+            margin: 5px 0;
+        }
+        .note-select {
+            margin-top: 5px;
+            padding: 5px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            width: 100px;
+        }
+
+        .note-input {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .feedback {
+            min-height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Práctica de Escalas Musicales</h1>
+        
+        <div class="notation-options">
+            <div class="notation-option">
+                <input type="radio" id="englishNotation" name="notation" value="english" checked>
+                <label for="englishNotation">Notación Inglesa (A, B, C, D, E, F, G)</label>
+            </div>
+            <div class="notation-option">
+                <input type="radio" id="spanishNotation" name="notation" value="spanish">
+                <label for="spanishNotation">Notación en Español (La, Si, Do, Re, Mi, Fa, Sol)</label>
+            </div>
+        </div>
+
+        <button onclick="generateNewScale()">Nueva Escala</button>
+        <div class="score">Puntuación: <span id="score">0</span></div>
+        
+        <div class="scale-container" id="scaleContainer"></div>
+        
+        <div class="scale-type">
+            <label for="scaleTypeInput">Tipo de Escala:</label>
+            <select id="scaleTypeInput">
+                <option value="">Selecciona el tipo...</option>
+                <option value="mayor">Mayor</option>
+                <option value="menor">Menor</option>
+                <option value="disminuida">Disminuida</option>
+                <option value="aumentada">Aumentada</option>
+            </select>
+        </div>
+        
+        <button onclick="checkAnswers()">Comprobar Respuestas</button>
+        <button class="show-solution" onclick="showSolution()">Mostrar Solución</button>
+
+        <div id="solutionBox" class="solution-box">
+            <h3>Solución</h3>
+            <div id="solutionScale" class="solution-scale"></div>
+            <div id="solutionType"></div>
+        </div>
+    </div>
+
+    <script>
+        const notesEnglish = [
+    'C', 'C#', 'Db', 'D', 'D#', 'Eb', 'E', 'F', 'F#', 'Gb', 
+    'G', 'G#', 'Ab', 'A', 'A#', 'Bb', 'B'
+];
+
+const notesSpanish = [
+    'Do', 'Do#', 'Reb', 'Re', 'Re#', 'Mib', 'Mi', 'Fa', 'Fa#', 'Solb', 
+    'Sol', 'Sol#', 'Lab', 'La', 'La#', 'Sib', 'Si'
+];
+        const naturalNotesEnglish = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+        const naturalNotesSpanish = ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Si'];
+        let currentScale = [];
+        let currentIntervals = [];
+        let currentScaleType = '';
+        let score = 0;
+
+        const scalePatterns = {
+            mayor: ['T', 'T', 'ST', 'T', 'T', 'T', 'ST'],
+            menor: ['T', 'ST', 'T', 'T', 'ST', 'T', 'T'],
+            disminuida: ['ST', 'T', 'ST', 'T', 'ST', 'T', 'ST'],
+            aumentada: ['T', 'T', 'T', 'T']
+        };
+
+        function normalizeNote(note) {
+    const equivalentNotes = {
+        'C#': 'Db', 'Db': 'C#',
+        'D#': 'Eb', 'Eb': 'D#',
+        'F#': 'Gb', 'Gb': 'F#',
+        'G#': 'Ab', 'Ab': 'G#',
+        'A#': 'Bb', 'Bb': 'A#'
+    };
+    return equivalentNotes[note] || note; // Devuelve la nota normalizada o la original si no tiene equivalente
+}
+
+        function getRandomNote() {
+            return naturalNotesEnglish[Math.floor(Math.random() * naturalNotesEnglish.length)];
+        }
+
+        function getNextNote(currentNote, interval) {
+            const currentIndex = naturalNotesEnglish.indexOf(currentNote);
+            const steps = interval === 'T' ? 2 : 1;
+            return naturalNotesEnglish[(currentIndex + steps) % naturalNotesEnglish.length];
+        }
+
+        function convertNoteToSpanish(note) {
+            const index = naturalNotesEnglish.indexOf(note);
+            return naturalNotesSpanish[index];
+        }
+
+        function convertNoteToEnglish(note) {
+            const index = naturalNotesSpanish.indexOf(note);
+            return naturalNotesEnglish[index];
+        }
+/*function generateScale() {
+    const scaleTypes = ['mayor', 'menor', 'disminuida', 'aumentada'];
+    currentScaleType = scaleTypes[Math.floor(Math.random() * scaleTypes.length)];
+    const pattern = scalePatterns[currentScaleType];
+
+    const startNote = getRandomNote();
+    currentScale = [startNote];
+    let currentNote = startNote;
+
+    currentIntervals = pattern;
+    for (let interval of pattern) {
+        currentNote = getNextNote(currentNote, interval);
+        if (currentNote !== startNote) {
+            currentScale.push(currentNote);
+        }
+    }
+    currentScale.push(startNote);
+
+    // Aplicar alteraciones según el tipo de escala
+    if (currentScaleType === 'mayor') {
+        // Escala mayor: Tono - Tono - Semitono - Tono - Tono - Tono - Semitono
+        currentScale[2] = currentScale[2] + '#'; // Tercer grado sostenido
+    } else if (currentScaleType === 'menor') {
+        // Escala menor: Tono - Semitono - Tono - Tono - Semitono - Tono - Tono
+        currentScale[2] = currentScale[2] + 'b'; // Tercer grado bemol
+        currentScale[5] = currentScale[5] + 'b'; // Sexto grado bemol
+        currentScale[6] = currentScale[6] + 'b'; // Séptimo grado bemol
+    } else if (currentScaleType === 'aumentada') {
+        // Escala aumentada: Tono - Tono - Tono - Tono
+        currentScale[1] = currentScale[1] + '#'; // Segundo grado sostenido
+        currentScale[2] = currentScale[2] + '#'; // Tercer grado sostenido
+        currentScale[3] = currentScale[3] + '#'; // Cuarto grado sostenido
+    } else if (currentScaleType === 'disminuida') {
+        // Escala disminuida: Semitono - Tono - Semitono - Tono - Semitono - Tono
+        currentScale[1] = currentScale[1] + 'b'; // Segundo grado bemol
+        currentScale[3] = currentScale[3] + 'b'; // Cuarto grado bemol
+        currentScale[5] = currentScale[5] + 'b'; // Sexto grado bemol
+    }
+}*/
+
+
+// Variable global para almacenar la escala con alteraciones
+//let currentScaleWithAlterations = [];
+// Definir las notas en orden para ambas notaciones
+const notesEnglishOrdered = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+const notesSpanishOrdered = ['Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Si'];
+
+function generateScale() {
+    const scaleTypes = ['mayor', 'menor', 'disminuida', 'aumentada'];
+    currentScaleType = scaleTypes[Math.floor(Math.random() * scaleTypes.length)];
+    
+    // Elegir una nota inicial aleatoria
+    const startIndex = Math.floor(Math.random() * notesEnglishOrdered.length);
+    const startNote = notesEnglishOrdered[startIndex];
+    
+    // Generar la secuencia de notas en orden a partir de la nota inicial
+    currentScale = [];
+    let currentIndex = startIndex;
+    
+    // Generar 8 notas (incluyendo la repetición de la primera)
+    for (let i = 0; i < 8; i++) {
+        currentScale.push(notesEnglishOrdered[currentIndex]);
+        currentIndex = (currentIndex + 1) % 7; // Usar módulo 7 para volver al inicio
+    }
+    
+    // Guardar una copia para las alteraciones
+    currentScaleWithAlterations = [...currentScale];
+    
+    // Aplicar alteraciones según el tipo de escala
+    switch(currentScaleType) {
+        case 'mayor':
+            // Escala mayor: alteración en el 4º y 7º grado
+            currentScaleWithAlterations[3] = currentScaleWithAlterations[3] + '#';
+            currentScaleWithAlterations[6] = currentScaleWithAlterations[6] + '#';
+            break;
+        case 'menor':
+            // Escala menor: alteración en el 3º, 6º y 7º grado
+            currentScaleWithAlterations[2] = currentScaleWithAlterations[2] + 'b';
+            currentScaleWithAlterations[5] = currentScaleWithAlterations[5] + 'b';
+            currentScaleWithAlterations[6] = currentScaleWithAlterations[6] + 'b';
+            break;
+        case 'disminuida':
+            // Escala disminuida: alteración en el 2º, 4º y 6º grado
+            currentScaleWithAlterations[1] = currentScaleWithAlterations[1] + 'b';
+            currentScaleWithAlterations[3] = currentScaleWithAlterations[3] + 'b';
+            currentScaleWithAlterations[5] = currentScaleWithAlterations[5] + 'b';
+            break;
+        case 'aumentada':
+            // Escala aumentada: alteración en el 3º, 5º y 7º grado
+            currentScaleWithAlterations[2] = currentScaleWithAlterations[2] + '#';
+            currentScaleWithAlterations[4] = currentScaleWithAlterations[4] + '#';
+            currentScaleWithAlterations[6] = currentScaleWithAlterations[6] + '#';
+            break;
+    }
+
+    // Generar los intervalos correspondientes
+    currentIntervals = [];
+    for (let i = 0; i < currentScale.length - 1; i++) {
+        switch(currentScaleType) {
+            case 'mayor':
+                currentIntervals.push(i === 2 || i === 6 ? 'ST' : 'T');
+                break;
+            case 'menor':
+                currentIntervals.push(i === 1 || i === 4 ? 'ST' : 'T');
+                break;
+            case 'disminuida':
+                currentIntervals.push(i % 2 === 0 ? 'ST' : 'T');
+                break;
+            case 'aumentada':
+                currentIntervals.push('T');
+                break;
+        }
+    }
+}
+
+        function generateNewScale() {
+            generateScale();
+            displayScale();
+            document.getElementById('scaleTypeInput').value = currentScaleType;
+            document.getElementById('solutionBox').style.display = 'none';
+            updateScore(0);
+        }
+
+function displayScale() {
+    const container = document.getElementById('scaleContainer');
+    container.innerHTML = '';
+    const isSpanish = document.getElementById('spanishNotation').checked;
+
+    for (let i = 0; i < currentScale.length; i++) {
+        const noteDiv = document.createElement('div');
+        noteDiv.className = 'note-input';
+        
+        const noteSpan = document.createElement('div');
+        // Convertir a notación española si es necesario
+        const displayNote = isSpanish ? 
+            notesSpanishOrdered[notesEnglishOrdered.indexOf(currentScale[i])] : 
+            currentScale[i];
+        
+        noteSpan.className = `note note-${currentScale[i]}`;
+        noteSpan.textContent = displayNote;
+
+        const intervalSelect = document.createElement('select');
+        intervalSelect.innerHTML = `
+            <option value="">-</option>
+            <option value="T">T</option>
+            <option value="ST">ST</option>
+        `;
+        
+        const noteSelect = document.createElement('select');
+        noteSelect.className = 'note-select';
+        const allNotes = isSpanish ? notesSpanish : notesEnglish;
+        noteSelect.innerHTML = `<option value="">Selecciona nota</option>` +
+            allNotes.map(note => `<option value="${note}">${note}</option>`).join('');
+        
+        const intervalFeedback = document.createElement('div');
+        intervalFeedback.className = 'feedback';
+        const noteFeedback = document.createElement('div');
+        noteFeedback.className = 'feedback';
+
+        noteDiv.appendChild(noteSpan);
+        if (i < currentScale.length - 1) {
+            noteDiv.appendChild(intervalSelect);
+            noteDiv.appendChild(intervalFeedback);
+        }
+        noteDiv.appendChild(noteSelect);
+        noteDiv.appendChild(noteFeedback);
+        container.appendChild(noteDiv);
+    }
+}
+
+
+function showSolution() {
+    const solutionBox = document.getElementById('solutionBox');
+    const solutionScale = document.getElementById('solutionScale');
+    const solutionType = document.getElementById('solutionType');
+    const isSpanish = document.getElementById('spanishNotation').checked;
+
+    solutionScale.innerHTML = '';
+    
+    for (let i = 0; i < currentScaleWithAlterations.length; i++) {
+        const noteDiv = document.createElement('div');
+        noteDiv.className = 'solution-note';
+        
+        // Usar la escala con alteraciones para la solución
+        let noteToDisplay = currentScaleWithAlterations[i];
+        
+        // Convertir a notación española si es necesario
+        const displayNote = isSpanish ? 
+            (noteToDisplay.includes('#') ? 
+                convertNoteToSpanish(noteToDisplay.replace('#', '')) + '#' :
+                noteToDisplay.includes('b') ? 
+                    convertNoteToSpanish(noteToDisplay.replace('b', '')) + 'b' :
+                    convertNoteToSpanish(noteToDisplay)) :
+            noteToDisplay;
+
+        const noteSpan = document.createElement('div');
+        noteSpan.className = `note note-${noteToDisplay.replace('#', '\\#').replace('b', 'b')}`;
+        noteSpan.textContent = displayNote;
+        
+        noteDiv.appendChild(noteSpan);
+        
+        if (i < currentScaleWithAlterations.length - 1) {
+            const intervalSpan = document.createElement('div');
+            intervalSpan.className = 'solution-interval';
+            intervalSpan.textContent = currentIntervals[i];
+            noteDiv.appendChild(intervalSpan);
+        }
+        
+        solutionScale.appendChild(noteDiv);
+    }
+    
+    const scaleTypeNames = {
+        mayor: 'Mayor',
+        menor: 'Menor',
+        disminuida: 'Disminuida',
+        aumentada: 'Aumentada'
+    };
+    
+    solutionType.textContent = `Tipo de escala: ${scaleTypeNames[currentScaleType]}`;
+    solutionBox.style.display = 'block';
+}
+     // Función para obtener la nota correcta según el tipo de escala y posición
+function getCorrectNote(startNote, position, scaleType) {
+    const scaleNotes = [];
+    let currentNote = startNote;
+    
+    switch(scaleType) {
+        case 'mayor':
+            // Patrón de la escala mayor con alteraciones
+            if (position === 3) {
+                return currentNote + '#'; // Cuarto grado alterado
+            }
+            break;
+            
+        case 'menor':
+            // Patrón de la escala menor con alteraciones
+            if (position === 6) {
+                return currentNote + '#'; // Séptimo grado alterado
+            }
+            break;
+            
+        case 'disminuida':
+            // Patrón de la escala disminuida con alteraciones
+            if (position === 1) {
+                return currentNote + 'b'; // Segundo grado alterado
+            }
+            break;
+            
+        case 'aumentada':
+            // Patrón de la escala aumentada con alteraciones
+            if (position === 2) {
+                return currentNote + '#'; // Tercer grado alterado
+            }
+            break;
+    }
+    
+    return currentNote;
+}
+
+// Función modificada checkAnswers()
+function checkAnswers() {
+    let allCorrect = true;
+    const intervalSelects = document.querySelectorAll('.note-input select:not(.note-select)');
+    const noteSelects = document.querySelectorAll('.note-select');
+    const feedbacks = document.querySelectorAll('.feedback');
+    const isSpanish = document.getElementById('spanishNotation').checked;
+
+    // Verificar intervalos
+    for (let i = 0; i < intervalSelects.length - 1; i++) {
+        const isIntervalCorrect = intervalSelects[i].value === currentIntervals[i];
+        feedbacks[i * 2].textContent = isIntervalCorrect ? '✓' : '✗';
+        feedbacks[i * 2].className = `feedback ${isIntervalCorrect ? 'correct' : 'incorrect'}`;
+        if (!isIntervalCorrect) allCorrect = false;
+    }
+    
+    // Verificar notas
+    for (let i = 0; i < noteSelects.length; i++) {
+        let expectedNote = currentScale[i];
+        
+        // Aplicar alteraciones según el tipo de escala
+        if (currentScaleType === 'mayor') {
+            if (i === 3) expectedNote = 'F#';
+            if (i === 6) expectedNote = 'G#';
+        } else if (currentScaleType === 'menor') {
+            if (i === 2) expectedNote = expectedNote + 'b';
+            if (i === 5) expectedNote = expectedNote + 'b';
+            if (i === 6) expectedNote = expectedNote + 'b';
+        } else if (currentScaleType === 'disminuida') {
+            if (i === 1) expectedNote = expectedNote + 'b';
+            if (i === 3) expectedNote = expectedNote + 'b';
+            if (i === 5) expectedNote = expectedNote + 'b';
+        } else if (currentScaleType === 'aumentada') {
+            if (i === 2) expectedNote = expectedNote === 'E#' ? 'F' : expectedNote + '#';
+            if (i === 4) expectedNote = expectedNote === 'E#' ? 'F' : expectedNote + '#';
+            if (i === 6) expectedNote = expectedNote === 'E#' ? 'F' : expectedNote + '#';
+        }
+
+        // Convertir a notación española si es necesario
+        if (isSpanish) {
+            if (expectedNote.includes('#')) {
+                const baseNote = expectedNote.replace('#', '');
+                expectedNote = convertNoteToSpanish(baseNote) + '#';
+            } else if (expectedNote.includes('b')) {
+                const baseNote = expectedNote.replace('b', '');
+                expectedNote = convertNoteToSpanish(baseNote) + 'b';
+            } else {
+                expectedNote = convertNoteToSpanish(expectedNote);
+            }
+        }
+
+        // Comparar la nota seleccionada con la nota esperada
+        const selectedNote = noteSelects[i].value;
+        const isNoteCorrect = selectedNote === expectedNote;
+        
+        feedbacks[i * 2 + 1].textContent = isNoteCorrect ? '✓' : '✗';
+        feedbacks[i * 2 + 1].className = `feedback ${isNoteCorrect ? 'correct' : 'incorrect'}`;
+        if (!isNoteCorrect) allCorrect = false;
+    }
+
+    // Verificar tipo de escala
+    const scaleTypeInput = document.getElementById('scaleTypeInput');
+    const isTypeCorrect = scaleTypeInput.value === currentScaleType;
+    if (!isTypeCorrect) allCorrect = false;
+
+    // Actualizar puntuación
+    if (allCorrect) {
+        updateScore(score + 1);
+    }
+}
+
+        function updateScore(newScore) {
+            score = newScore;
+            document.getElementById('score').textContent = score;
+        }
+
+        // Add event listener for notation change
+        document.querySelectorAll('input[name="notation"]').forEach(radio => {
+            radio.addEventListener('change', displayScale);
+        });
+
+        // Initialize the game
+        generateNewScale();
+    </script>
+</body>
+</html>
