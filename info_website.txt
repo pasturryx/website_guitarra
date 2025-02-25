@@ -1,3 +1,81 @@
 https://chat.deepseek.com/a/chat/s/f97cd94f-660e-4d5f-b724-947a21c4230f  // como cree la database local
-
+C:\Users\felip\Documents\GitHub\website_guitarra
 python -m http.server 8000  // ejecutar servidor
+
+
+https://github.com/fuhton/piano-mp3
+}
+
+
+
+Para combinar acordes de manera que suenen bien, puedes explorar algunos conceptos y términos clave en la teoría musical:
+
+1. Progresiones de Acordes
+Progresiones: Una serie de acordes tocados en secuencia. Las progresiones más comunes incluyen:
+I-IV-V: Por ejemplo, Do (I) - Fa (IV) - Sol (V).
+I-vi-ii-V: Común en el jazz y el pop.
+ii-V-I: Muy utilizado en el jazz.
+2. Tonalidad
+Tonalidad: Asegúrate de que los acordes que elijas pertenezcan a la misma tonalidad. Esto asegura que los acordes suenen bien juntos.
+Escalas: Usa las notas de la escala correspondiente a la tonalidad para crear tus acordes.
+3. Cadencias
+Cadencias: Estas son secuencias de acordes que crean un sentido de resolución. Por ejemplo:
+Cadencia Perfecta: V-I (Sol a Do).
+Cadencia Plagal: IV-I (Fa a Do).
+4. Acordes de Séptima y Otras Extensiones
+Acordes de Séptima: Añadir séptimas (mayores o menores) a tus acordes puede agregar riqueza y complejidad.
+Acordes de Extensión: Agregar notas adicionales como novenas o trecenas también puede enriquecer tu progresión.
+5. Modulación
+Modulación: Cambiar de tonalidad durante una pieza puede mantener el interés y agregar variedad.
+6. Interacción Melódica
+Melodía y Acordes: Asegúrate de que la melodía que toques se complemente con los acordes. Las notas de la melodía deben coincidir con las notas de los acordes en algún momento.
+Términos Clave:
+Función Armónica: Entender cómo cada acorde funciona dentro de la tonalidad (tónica, subdominante, dominante).
+Tonalidad Relativa: Usar acordes de la tonalidad relativa (mayor o menor) para variaciones.
+Recursos:
+Libros de Teoría Musical: Explorar libros que traten sobre armonía y progresiones de acordes.
+Ejemplos Musicales: Escuchar y analizar canciones para identificar progresiones de acordes comunes.
+Experimenta con diferentes combinaciones y escucha lo que suena bien a tus oídos. ¡La práctica y la exploración son clave!
+
+
+
+
+
+Aquí tienes una guía completa sobre lo que necesitas saber para aprender a componer canciones con tu guitarra:
+
+1. Teoría Musical Básica
+Notas y Acordes: Conoce las notas musicales y cómo se forman los acordes (mayores, menores, séptimas, etc.).
+Escalas: Familiarízate con las escalas mayores y menores, y cómo se utilizan para crear melodías.
+2. Progresiones de Acordes
+Progresiones Comunes: Aprende progresiones de acordes populares (I-IV-V, ii-V-I, etc.).
+Función Armónica: Entiende la función de cada acorde dentro de una tonalidad (tónica, subdominante, dominante).
+3. Estructura de Canciones
+Secciones: Conoce las partes de una canción (verso, coro, puente).
+Forma: Aprende estructuras comunes, como verso-coro-verso o verso-refrán-puente.
+4. Melodía
+Creación de Melodías: Aprende a usar las notas de los acordes y escalas para crear melodías que se complementen.
+Frases Musicales: Desarrolla frases melódicas que tengan coherencia y musicalidad.
+5. Ritmo y Compás
+Compases: Familiarízate con diferentes compases (4/4, 3/4, 6/8) y cómo afectan el ritmo de tu composición.
+Ritmos de Rasgueo: Practica diferentes patrones de rasgueo y arpegios en la guitarra.
+6. Letras
+Escritura de Letras: Escribe letras que cuenten una historia o transmitan emociones. Experimenta con rimas y métricas.
+Vinculación con la Música: Asegúrate de que las letras se adapten a la melodía y ritmo de la música.
+7. Harmonía
+Acordes Complementarios: Experimenta con acordes que añadan color a tu progresión.
+Acordes de Séptima y Extensiones: Incorpora acordes más complejos para enriquecer tu música.
+8. Estilo y Género
+Explora Diferentes Estilos: Escucha y aprende sobre diferentes géneros musicales (rock, folk, blues, jazz) y cómo se componen en cada uno.
+Desarrolla Tu Propio Estilo: Experimenta con diferentes técnicas hasta que encuentres tu voz única.
+9. Grabación y Producción
+Grabar Ideas: Usa un software de grabación (como Reaper) para capturar tus ideas.
+Producción: Aprende lo básico sobre producción musical si deseas llevar tus composiciones más allá de la guitarra.
+10. Práctica y Experimentación
+Componer Regularmente: Dedica tiempo a la composición de manera regular.
+Experimenta: No tengas miedo de probar cosas nuevas y salir de tu zona de confort.
+Recursos Útiles
+Libros de Composición: Investiga libros sobre composición musical.
+Cursos en Línea: Considera tomar cursos de música o composición en plataformas como Coursera o Udemy.
+Análisis de Canciones: Escucha tus canciones favoritas y analiza sus progresiones, letras y estructuras.
+Conclusión
+La composición es un proceso creativo que mejora con la práctica. No te desanimes si al principio no te suena perfecto; sigue experimentando y divirtiéndote con tu guitarra. ¡La música es una forma de expresión personal, así que disfruta del viaje!

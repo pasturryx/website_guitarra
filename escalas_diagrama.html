@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <link rel="icon" href="ico/music5.ico" type="image/x-icon">
-<link rel="icon" href="ico/music5.ico" type="image/x-icon">
-<!-- <link rel="icon" href="ico/music5.ico" type="image/x-icon"> -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -101,6 +99,43 @@
             opacity: 0.85;
         }
 
+/*        */
+.chord1-box {
+    display: flex; /* Usar flexbox para alinear elementos en línea */
+    justify-content: center; /* Centrar horizontalmente */
+}
+
+.chord1-box .image-container {
+    position: relative; /* Para posicionar el título */
+    margin: 0 10px; /* Espaciado entre imágenes */
+}
+
+.chord1-box .image-container img {
+    max-width: 100%; /* Asegura que las imágenes no se salgan del contenedor */
+    height: auto; /* Mantiene la proporción de las imágenes */
+}
+
+.chord1-box .image-container.mayor img {
+    border: 5px solid blue; /* Marco azul para la imagen mayor */
+}
+
+.chord1-box .image-container.menor img {
+    border: 5px solid red; /* Marco rojo para la imagen menor */
+}
+
+.chord1-box .title {
+    position: absolute; /* Para posicionar el título sobre la imagen */
+    top: 46%; /* Centra verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Compensa el desplazamiento del centro */
+    background-color: rgba(0, 128, 0, 0.7); /* Fondo verde semitransparente */
+    color: white; /* Color del texto */
+    padding: 5px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    text-align: center; /* Centrar el texto */
+    font-weight: bold; /* Hacer el texto más grueso */
+}
+
         /* Footer */
         footer {
             text-align: center;
@@ -121,77 +156,72 @@
 <body>
 
 <header>
-    <h1>Diccionario de Acordes con Imágenes</h1>
-    <p>Explora y aprende los Acordes más comunes en la guitarra con imágenes</p>
+    <h1>Escalas y modos en la guitarra</h1>
+    <p>Explora y aprende las escalas más comunes en la guitarra con imágenes</p>
 </header>
 
 <div class="container">
     <!-- Acordes Mayores -->
     <div class="chord-section">
-        <h2>Primeros Acordes (acordes basicos)</h2>
+        <h2>Escala Mayor y Menor</h2>
         <div class="chord-row">
             <div class="chord-box major">
                 <!-- <img src="ruta/a/imagen-todos-mayores.jpg" alt="Primeros Acordes (acordes basicos)"> -->
-                 <img src="acordes/acordes_basicos.png" alt="Primeros Acordes (acordes basicos)">
-                <div class="chord-name">Primeros Acordes (acordes basicos)</div>
+                 <img src="escalas/mayor_menor.png" alt="Escala Mayor y Menor">
+                <div class="chord-name">Escala Mayor y Menor</div>
             </div>
         </div>
     </div>
 
     <!-- Acordes de Séptima Mayor -->
     <div class="chord-section">
-        <h2>Variantes de ciertos acordes. MI7, SI7 menor. FA Y SOL 7 MAYOR</h2>
+        <h2>Pentatonica Mayor</h2>
         <div class="chord-row">
             <div class="chord-box major-seventh">
                 <!-- <img src="ruta/a/imagen-todos-major-seventh.jpg" alt="Acordes de séptima mayor"> -->
-                <img src="acordes/acordes_basicos2.png" alt="Variantes de ciertos acordes">
-                <div class="chord-name">Variantes de ciertos acordes</div>
+                <img src="escalas/penta_mayor.png" alt="Pentatonica Mayor">
+                <div class="chord-name">Pentatonica Mayor</div>
             </div>
         </div>
     </div>
 
       <!-- Acordes de Séptima -->
     <div class="chord-section">
-        <h2>Acordes sus2 y sus4</h2>
+        <h2>Pentatonica Menor</h2>
         <div class="chord-row">
             <div class="chord-box seventh">
                 <!-- <img src="ruta/a/imagen-todos-septima.jpg" alt="Acordes de séptima"> -->
-                 <img src="acordes/sus2sus4.png" alt="Acordes sus2 y sus4">
-                <div class="chord-name">Acordes sus2 y sus4</div>
+                 <img src="escalas/penta_menor.png" alt="Pentatonica Menor">
+                <div class="chord-name">Pentatonica Menor</div>
             </div>
         </div>
     </div>
 
 
-    <!-- Acordes de Séptima Menor -->
     <div class="chord-section">
-        <h2>Acordes disminuidos</h2>
-        <div class="chord-row">
-            <div class="chord-box minor-seventh">
-                <img src="acordes/disminuidos.png" alt="Acordes disminuidos">
-                <div class="chord-name">Acordes disminuidos</div>
+    <h2>Escala Pentatonica Mayor & Menor</h2>
+    <div class="chord-row">
+        <div class="chord1-box">
+            <div class="image-container mayor">
+                <div class="title">Escala Pentatonica Mayor</div>
+                <img src="escalas/penta_mayor.png" alt="Escala Pentatonica Mayor">
+            </div>
+            <div class="image-container menor">
+                <div class="title">Escala Pentatonica Menor</div>
+                <img src="escalas/penta_menor.png" alt="Escala Pentatonica Menor">
             </div>
         </div>
     </div>
+</div>
+
 
     <!-- Acordes Menores -->
     <div class="chord-section">
-        <h2>Acordes Aumentados</h2>
+        <h2>Los 7 Modos</h2>
         <div class="chord-row">
             <div class="chord-box minor">
-                <img src="acordes/aumentados.png" alt="Acordes Aumentados">
-                <div class="chord-name">Acordes Aumentados</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Acordes Pentatonicos -->
-    <div class="chord-section">
-        <h2>Acordes Pentatonicos</h2>
-        <div class="chord-row">
-            <div class="chord-box diminished">
-                <img src="acordes/acordes_pentatonicos.png" alt="Acordes Pentatonicos">
-                <div class="chord-name">Acordes Pentatonicos</div>
+                <img src="escalas/escalas_modos.png" alt="Los 7 Modos">
+                <div class="chord-name">Los 7 Modos</div>
             </div>
         </div>
     </div>

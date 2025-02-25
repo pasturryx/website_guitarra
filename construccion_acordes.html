@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<link rel="icon" href="ico/music5.ico" type="image/x-icon">
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -41,11 +42,6 @@
             margin: 10px 0;
             border-radius: 5px;
         }
-        .chord-structure {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
         .scale-box {
             border: 1px solid #007BFF;
             background: #d1e7ff;
@@ -59,20 +55,11 @@
             background: #007BFF;
             color: #fff;
         }
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 16px;
-            cursor: pointer;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
         .degree {
+            font-weight: bold;
+        }
+        .highlight {
+            color: #ff5722; /* Color para resaltar grados y notas a modificar */
             font-weight: bold;
         }
         .example {
@@ -89,6 +76,24 @@
         }
         .guitar-section h3 {
             color: #ff9800;
+        }
+        .altered {
+            background-color: #ffe0b2; /* Color para el fondo de notas alteradas */
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #007BFF;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #cfe2ff;
         }
     </style>
 </head>
@@ -127,140 +132,327 @@
         <div class="chord-box">
             <div class="chord-structure">
                 <div>
-                    <strong>Estructura:</strong> Nota raíz + Tono + Tono + Semitono + Tono + Tono + Tono + Semitono
+                    <strong>Estructura:</strong> Nota raíz + Tono + Tono + Semitono
                 </div>
                 <div>
                     <strong>Ejemplo:</strong> Do mayor (C)
                 </div>
             </div>
-            <p><strong>Notas:</strong> Do, Mi, Sol</p>
-            <p><strong>Escala:</strong> Do, Re, Mi, Fa, Sol, La, Si</p>
+            <p><strong>Notas:</strong> <span class="highlight">Do</span>, Mi, Sol</p>
             <div class="scale-box">
                 <div class="degree">Grados:</div>
-                <div>I  II  III  IV  V  VI  VII</div>
+                <table>
+                    <tr>
+                        <th><span class="highlight">I</span></th>
+                        <th>II</th>
+                        <th>III</th>
+                        <th>IV</th>
+                        <th>V</th>
+                        <th>VI</th>
+                        <th>VII</th>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Do</span></td>
+                        <td>Re</td>
+                        <td>Mi</td>
+                        <td>Fa</td>
+                        <td>Sol</td>
+                        <td>La</td>
+                        <td>Si</td>
+                    </tr>
+                </table>
                 <div>Intervalos:</div>
                 <div>T  T  ST  T  T  T  ST</div>
-                <div>Notas:</div>
-                <div>Do  Re  Mi  Fa  Sol  La  Si</div>
             </div>
         </div>
         <div class="example">
-            <strong>Explicación:</strong> El acorde mayor se forma con la nota raíz (Do), la tercera mayor (Mi) y la quinta justa (Sol).
+            <strong>Explicación:</strong> El acorde mayor se forma con la nota raíz (<span class="highlight">Do</span>), la tercera mayor (Mi) y la quinta justa (Sol).
         </div>
 
         <h3>2. Acordes Menores</h3>
         <div class="chord-box">
             <div class="chord-structure">
                 <div>
-                    <strong>Estructura:</strong> Nota raíz + Tono + Semitono + Tono + Tono + Semitono + Tono + Tono
+                    <strong>Estructura:</strong> Nota raíz + Tono + Semitono + Tono
                 </div>
                 <div>
                     <strong>Ejemplo:</strong> La menor (Am)
                 </div>
             </div>
-            <p><strong>Notas:</strong> La, Do, Mi</p>
-            <p><strong>Escala:</strong> La, Si, Do, Re, Mi, Fa, Sol</p>
+            <p><strong>Notas:</strong> <span class="highlight">La</span>, <span class="highlight">Do</span>, Mi</p>
             <div class="scale-box">
                 <div class="degree">Grados:</div>
-                <div>I  II  III  IV  V  VI  VII</div>
+                <table>
+                    <tr>
+                        <th><span class="highlight">I</span></th>
+                        <th>II</th>
+                        <th>III</th>
+                        <th>IV</th>
+                        <th>V</th>
+                        <th>VI</th>
+                        <th>VII</th>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">La</span></td>
+                        <td>Si</td>
+                        <td><span class="highlight">Do</span></td>
+                        <td>Re</td>
+                        <td>Mi</td>
+                        <td>Fa</td>
+                        <td>Sol</td>
+                    </tr>
+                </table>
                 <div>Intervalos:</div>
                 <div>T  ST  T  T  ST  T  T</div>
-                <div>Notas:</div>
-                <div>La  Si  Do  Re  Mi  Fa  Sol</div>
             </div>
         </div>
         <div class="example">
-            <strong>Explicación:</strong> El acorde menor se forma con la nota raíz (La), la tercera menor (Do) y la quinta justa (Mi).
+            <strong>Explicación:</strong> El acorde menor se forma con la nota raíz (<span class="highlight">La</span>), la tercera menor (<span class="highlight">Do</span>) y la quinta justa (Mi).
+        </div>
+
+        <h3>3. Acordes Disminuidos</h3>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Semitono + Tono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Si disminuido (Bdim)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> <span class="highlight">Si</span>, <span class="highlight">Re</span>, <span class="highlight">Fa</span></p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <table>
+                    <tr>
+                        <th><span class="highlight">I</span></th>
+                        <th>II</th>
+                        <th>III</th>
+                        <th>IV</th>
+                        <th>V</th>
+                        <th>VI</th>
+                        <th>VII</th>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Si</span></td>
+                        <td>Do#</td>
+                        <td><span class="highlight">Re</span></td>
+                        <td>Mi</td>
+                        <td>Fa#</td>
+                        <td>Sol#</td>
+                        <td>La#</td>
+                    </tr>
+                </table>
+                <div>Intervalos:</div>
+                <div>T  ST  T  T  ST  T  T</div>
+            </div>
+        </div>
+        <div class="example">
+            <strong>Explicación:</strong> El acorde disminuido se forma con la nota raíz (<span class="highlight">Si</span>), la tercera menor (<span class="highlight">Re</span>) y la quinta disminuida (<span class="highlight">Fa</span>).
+        </div>
+
+        <h3>4. Acordes Aumentados</h3>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Tono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Do aumentado (Caug)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> <span class="highlight">Do</span>, Mi, <span class="highlight">Sol sostenido</span></p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <table>
+                    <tr>
+                        <th><span class="highlight">I</span></th>
+                        <th>II</th>
+                        <th>III</th>
+                        <th>IV</th>
+                        <th>V</th>
+                        <th>VI</th>
+                        <th>VII</th>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Do</span></td>
+                        <td>Re</td>
+                        <td>Mi</td>
+                        <td>Fa</td>
+                        <td><span class="highlight">Sol sostenido</span></td>
+                        <td>La</td>
+                        <td>Si</td>
+                    </tr>
+                </table>
+                <div>Intervalos:</div>
+                <div>T  T  ST  T  T  T  ST</div>
+            </div>
+        </div>
+        <div class="example">
+            <strong>Explicación:</strong> El acorde aumentado se forma con la nota raíz (<span class="highlight">Do</span>), la tercera mayor (Mi) y la quinta aumentada (<span class="highlight">Sol sostenido</span>).
+        </div>
+
+        <h3>5. Acordes de Séptima</h3>
+        <h4>5.1 Séptima Mayor</h4>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Tono + Semitono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Do séptima mayor (Cmaj7)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> <span class="highlight">Do</span>, Mi, Sol, <span class="highlight">Si</span></p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <table>
+                    <tr>
+                        <th><span class="highlight">I</span></th>
+                        <th>II</th>
+                        <th>III</th>
+                        <th>IV</th>
+                        <th>V</th>
+                        <th>VI</th>
+                        <th>VII</th>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Do</span></td>
+                        <td>Re</td>
+                        <td>Mi</td>
+                        <td>Fa</td>
+                        <td>Sol</td>
+                        <td>La</td>
+                        <td><span class="highlight">Si</span></td>
+                    </tr>
+                </table>
+                <div>Intervalos:</div>
+                <div>T  T  ST  T  T  T  ST</div>
+            </div>
+        </div>
+        <div class="example">
+            <strong>Explicación:</strong> El acorde de séptima mayor se forma con la nota raíz (<span class="highlight">Do</span>), la tercera mayor (Mi), la quinta justa (Sol) y la séptima mayor (<span class="highlight">Si</span>).
+        </div>
+
+        <h4>5.2 Séptima Menor</h4>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Tono + Semitono
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Do séptima menor (C7)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> <span class="highlight">Do</span>, Mi, Sol, <span class="highlight">Si bemol</span></p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <table>
+                    <tr>
+                        <th><span class="highlight">I</span></th>
+                        <th>II</th>
+                        <th>III</th>
+                        <th>IV</th>
+                        <th>V</th>
+                        <th>VI</th>
+                        <th>VII</th>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Do</span></td>
+                        <td>Re</td>
+                        <td>Mi</td>
+                        <td>Fa</td>
+                        <td>Sol</td>
+                        <td>La</td>
+                        <td><span class="highlight">Si bemol</span></td>
+                    </tr>
+                </table>
+                <div>Intervalos:</div>
+                <div>T  T  ST  T  ST  T  T</div>
+            </div>
+        </div>
+        <div class="example">
+            <strong>Explicación:</strong> El acorde de séptima menor se forma con la nota raíz (<span class="highlight">Do</span>), la tercera mayor (Mi), la quinta justa (Sol) y la séptima menor (<span class="highlight">Si bemol</span>).
+        </div>
+
+        <h3>6. Acordes Sus2 (Suspensos de Segunda)</h3>
+        <div class="chord-box">
+            <div class="chord-structure">
+                <div>
+                    <strong>Estructura:</strong> Nota raíz + Segunda + Quinta
+                </div>
+                <div>
+                    <strong>Ejemplo:</strong> Do sus2 (Csus2)
+                </div>
+            </div>
+            <p><strong>Notas:</strong> <span class="highlight">Do</span>, <span class="highlight">Re</span>, Sol</p>
+            <div class="scale-box">
+                <div class="degree">Grados:</div>
+                <table>
+                    <tr>
+                        <th><span class="highlight">I</span></th>
+                        <th>II</th>
+                        <th>III</th>
+                        <th>IV</th>
+                        <th>V</th>
+                        <th>VI</th>
+                        <th>VII</th>
+                    </tr>
+                    <tr>
+                        <td><span class="highlight">Do</span></td>
+                        <td><span class="highlight">Re</span></td>
+                        <td>Mi</td>
+                        <td>Fa</td>
+                        <td>Sol</td>
+                        <td>La</td>
+                        <td>Si</td>
+                    </tr>
+                </table>
+                <div>Intervalos:</div>
+                <div>T  ST  T  T  ST  T  T</div>
+            </div>
+        </div>
+        <div class="example">
+            <strong>Explicación:</strong> El acorde sus2 se forma con la nota raíz (<span class="highlight">Do</span>), la segunda (<span class="highlight">Re</span>) y la quinta justa (Sol).
+        </div>
+
+       <h3>7. Acordes Sus4 (Suspensos de Cuarta)</h3>
+<div class="chord-box">
+    <div class="chord-structure">
+        <div>
+            <strong>Estructura:</strong> Nota raíz + Cuarta + Quinta
+        </div>
+        <div>
+            <strong>Ejemplo:</strong> Do sus4 (Csus4)
         </div>
     </div>
-
-    <div class="guitar-section">
-        <h2>Construcción de Acordes en la Guitarra</h2>
-        <p>
-            Aprender a construir acordes en la guitarra es esencial para tocar canciones y componer música. A continuación, te explicamos paso a paso cómo hacerlo:
-        </p>
-
-        <h3>1. Conoce las Notas en el Diapasón</h3>
-        <p>
-            El diapasón de la guitarra está dividido en trastes. Cada traste representa un semitono. Aquí tienes las notas en las cuerdas al aire (desde la 6ª cuerda hasta la 1ª):
-        </p>
-        <ul>
-            <li><strong>6ª cuerda (Mi grave):</strong> E (Mi)</li>
-            <li><strong>5ª cuerda (La):</strong> A (La)</li>
-            <li><strong>4ª cuerda (Re):</strong> D (Re)</li>
-            <li><strong>3ª cuerda (Sol):</strong> G (Sol)</li>
-            <li><strong>2ª cuerda (Si):</strong> B (Si)</li>
-            <li><strong>1ª cuerda (Mi agudo):</strong> E (Mi)</li>
-        </ul>
-        <p>
-            Cada traste sube la nota en un semitono. Por ejemplo, el primer traste de la 6ª cuerda es F (Fa), el segundo traste es F# (Fa sostenido), y así sucesivamente.
-        </p>
-
-        <h3>2. Encuentra la Nota Raíz</h3>
-        <p>
-            Para construir un acorde, primero debes encontrar la nota raíz en el diapasón. Por ejemplo, si quieres tocar un acorde de Do mayor, busca la nota Do en las cuerdas:
-        </p>
-        <ul>
-            <li>Do se encuentra en el 3er traste de la 5ª cuerda (A).</li>
-            <li>También en el 1er traste de la 2ª cuerda (B).</li>
-        </ul>
-
-        <h3>3. Añade la Tercera y la Quinta</h3>
-        <p>
-            Una vez que tienes la nota raíz, añade la tercera y la quinta para completar el acorde:
-        </p>
-        <ul>
-            <li><strong>Acorde Mayor:</strong> Raíz + Tercera mayor + Quinta justa.</li>
-            <li><strong>Acorde Menor:</strong> Raíz + Tercera menor + Quinta justa.</li>
-        </ul>
-        <p>
-            Por ejemplo, para un acorde de Do mayor:
-        </p>
-        <ul>
-            <li>Raíz: Do (3er traste, 5ª cuerda).</li>
-            <li>Tercera mayor: Mi (2do traste, 4ª cuerda).</li>
-            <li>Quinta justa: Sol (al aire, 3ª cuerda).</li>
-        </ul>
-
-        <h3>4. Forma el Acorde</h3>
-        <p>
-            Coloca tus dedos en las notas correspondientes y toca las cuerdas. Asegúrate de que cada nota suene clara. Aquí tienes la digitación para un acorde de Do mayor:
-        </p>
-        <pre>
-          1  2  3  4  5  6
-        E|---|---|---|---|---| (1ª cuerda)
-        B|-1-|---|---|---|---| (2ª cuerda)
-        G|---|---|---|---|---| (3ª cuerda)
-        D|---|-2-|---|---|---| (4ª cuerda)
-        A|---|---|-3-|---|---| (5ª cuerda)
-        E|---|---|---|---|---| (6ª cuerda)
-        </pre>
-        <p>
-            En este diagrama, los números indican los dedos que debes usar:
-        </p>
-        <ul>
-            <li>1: Dedo índice.</li>
-            <li>2: Dedo medio.</li>
-            <li>3: Dedo anular.</li>
-        </ul>
-
-        <h3>5. Practica con Diferentes Acordes</h3>
-        <p>
-            Repite el proceso con otros acordes, como La menor (Am), Sol mayor (G) o Mi menor (Em). Practica cambiando entre acordes para mejorar tu fluidez.
-        </p>
-    </div>
-
-    <div class="section">
-        <h2>Conclusión</h2>
-        <p>
-            Construir acordes en la guitarra es una habilidad fundamental para cualquier músico. Con este manual, has aprendido las estructuras básicas de los acordes y cómo tocarlos en la guitarra. ¡Practica regularmente y verás cómo mejoras!
-        </p>
+    <p><strong>Notas:</strong> <span class="highlight">Do</span>, <span class="highlight">Fa</span>, Sol</p>
+    <div class="scale-box">
+        <div class="degree">Grados:</div>
+        <table>
+            <tr>
+                <th><span class="highlight">I</span></th>
+                <th>II</th>
+                <th>III</th>
+                <th><span class="highlight">IV</span></th>
+                <th>V</th>
+                <th>VI</th>
+                <th>VII</th>
+            </tr>
+            <tr>
+                <td><span class="highlight">Do</span></td>
+                <td>Re</td>
+                <td>Mi</td>
+                <td><span class="highlight">Fa</span></td>
+                <td>Sol</td>
+                <td>La</td>
+                <td>Si</td>
+            </tr>
+        </table>
+        <div>Intervalos:</div>
+        <div>T  T  ST  T  T  T  ST</div>
     </div>
 </div>
-
-<footer>
-    <p>&copy; 2025 Manual de Construcción de Acordes en la Guitarra. Todos los derechos reservados.</p>
-</footer>
-
-</body>
-</html>
+<div class="example">
+    <strong>Explicación:</strong> El acorde sus4 se forma con la nota raíz (<span class="highlight">Do</span>), la cuarta (<span class="highlight">Fa</span>) y la quinta justa (Sol).
+</div>
