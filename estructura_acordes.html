@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoría de Acordes - Felipe Rodríguez</title>
+    <link rel="icon" href="ico/music5.ico" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #0a0a0a;
+        }
+
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        video {
+            position: absolute;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .title-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            z-index: 1;
+        }
+
+        .title-container h1 {
+            color: white;
+            text-align: left;
+            margin: 0;
+            padding: 10px 20px;
+            font-size: 2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .content-container {
+            display: flex;
+            padding: 100px 20px 20px 200px;
+        }
+
+        .main-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 180px;
+            background: rgba(0, 123, 255, 0.9);
+            padding: 15px;
+            height: calc(100vh - 80px);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
+        .menu-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .sound-controls {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        .sound-controls button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 0.9em;
+        }
+
+        .sound-controls button:hover {
+            background: #e0e0e0;
+        }
+
+        .volume-control {
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .main-content h2 {
+            color: #007BFF;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 10px;
+        }
+
+        .main-content h3 {
+            color: #0056b3;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            margin-top: 30px;
+        }
+
+        .main-content p {
+            line-height: 1.8;
+            color: #333;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .chord-box {
+            background: #f5f5f5;
+            border-left: 4px solid #007BFF;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .chord-box h4 {
+            color: #007BFF;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .chord-formula {
+            font-family: monospace;
+            background: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .chord-example {
+            font-style: italic;
+            color: #555;
+        }
+
+        .chord-container {
+            margin-bottom: 40px;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .chord-table {
+            display: flex;
+            flex-direction: row;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .chord-table div {
+            padding: 10px;
+            text-align: center;
+            border-right: 1px solid #ddd;
+            flex: 1;
+        }
+
+        .chord-table div:last-child {
+            border-right: none;
+        }
+
+        .chord-table .header {
+            background-color: #007BFF;
+            color: white;
+            font-weight: bold;
+        }
+
+        .chord-table .highlight {
+            background-color: #ffcccb;
+        }
+
+        .chord-table .minor {
+            background-color: #d3f8d3;
+        }
+
+        .chord-table .seventh {
+            background-color: #f8e8d3;
+        }
+
+        .chord-table .diminished {
+            background-color: #f8d3e8;
+        }
+
+        .chord-table .augmented {
+            background-color: #d3e8f8;
+        }
+
+        .chord-table .sus2 {
+            background-color: #e8d3f8;
+        }
+
+        .chord-table .sus4 {
+            background-color: #f8f8d3;
+        }
+
+        .highlight-bemol {
+            background-color: #d3c1f8; /* Color para notas bemoles */
+            color: #560d6e; /* Color para texto de notas bemoles */
+        }
+
+        .highlight-sostenido {
+            background-color: #f9e2b3; /* Color para notas sostenidas */
+            color: #6e4f00; /* Color para texto de notas sostenidas */
+        }
+
+        .notes {
+            font-style: italic;
+            color: #555;
+        }
+        table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #007BFF;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+    </style>
+</head>
+<body>
+    <div class="video-container">
+        <video id="background-video" autoplay muted loop>
+            <source src="test.mp4" type="video/mp4">
+            Tu navegador no soporta video.
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <div class="title-container">
+        <h1>Teoría de Acordes - Felipe Rodríguez</h1>
+    </div>
+
+    <div class="content-container">
+        <div class="sidebar">
+            <h2>Menú</h2>
+            <div class="menu-links">
+                <a href="register.html">Registro</a>    
+                <a href="intervalos_tonos.html">Notación musical, Tonos e intervalos</a>
+                <a href="construccion_acordes.html">Teoría de acordes</a>
+                <a href="acordes_imagenes.html">Diagrama de acordes</a>
+                <a href="escalas.html">Escalas y modos</a>
+                <a href="superguiaacordes.pdf" target="_blank">Guía todos los acordes</a>
+                <a href="guitarra_didactica.html">Guitarra Interactiva</a>
+                <a href="piano_real_didactico.html">Piano Interactivo</a>
+                <a href="escalas.html">Conformar Escalas</a>
+                <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas\src\dist/index.html">Círculo de Quintas</a>
+                <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas2\dist/index.html">Círculo de Quintas2</a>
+                <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas3/index.html">Círculo de Quintas3</a>
+                <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas4\dist/index.html">Círculo de Quintas4</a>
+            </div>
+
+            <div class="sound-controls">
+                <button id="mute-button">Activar sonido</button>
+                <input 
+                    type="range" 
+                    id="volume-control" 
+                    class="volume-control"
+                    min="0" 
+                    max="1" 
+                    step="0.1" 
+                    value="0"
+                >
+            </div>
+        </div>
+
+        <div class="main-content">
+            <h2>Tipos de Acordes en la Guitarra</h2>
+            <p>Los acordes son combinaciones de notas que suenan simultáneamente y son el fundamento de la armonía musical. En la guitarra, la forma y el carácter de un acorde están determinados por la estructura de sus intervalos. A continuación, se explican los principales tipos de acordes y sus características distintivas.</p>
+
+            <h3>Acordes Mayores</h3>
+            <div class="chord-box">
+                <h4>Estructura</h4>
+                <p>Tónica + tercera mayor + quinta justa</p>
+                <p><span class="chord-formula">Fórmula: 1-3-5</span></p>
+                <p><span class="chord-example">Ejemplo: Do mayor (C) = Do-Mi-Sol</span></p>
+                <p>Sonoridad: brillante, alegre, estable</p>
+                <p>En guitarra: Forma común de Do mayor: X32010</p>
+            </div>
+
+            <div class="chord-container">
+                <div class="chord-title">Acordes Mayores</div>
+                <div class="chord-table">
+                    <div class="header">Grado</div>
+                    <div>I</div>
+                    <div>III</div>
+                    <div>V</div>
+                </div>
+                <div class="chord-table">
+                    <div class="header">Nota</div>
+                    <div>Do</div>
+                    <div>Mi</div>
+                    <div>Sol</div>
+                </div>
+                <p class="notes"><strong>Notas:</strong> Do (I), Mi (III), Sol (V)</p>
+            </div>
+
+            <h3>Acordes Menores</h3>
+            <div class="chord-box">
+                <h4>Estructura</h4>
+                <p>Tónica + tercera menor + quinta justa</p>
+                <p><span class="chord-formula">Fórmula: 1-♭3-5</span></p>
+                <p><span class="chord-example">Ejemplo: Do menor (Cm) = Do-Mi♭-Sol</span></p>
+                <p>Sonoridad: melancólica, oscura, introspectiva</p>
+                <p>En guitarra: Forma común de Do menor: X35543</p>
+            </div>
+
+            <div class="chord-container">
+                <div class="chord-title">Acordes Menores</div>
+                <div class="chord-table">
+                    <div class="header">Grado</div>
+                    <div>I</div>
+                    <div class="highlight minor">♭III</div>
+                    <div>V</div>
+                </div>
+                <div class="chord-table">
+                    <div class="header">Nota</div>
+                    <div>Do</div>
+                    <div class="highlight minor highlight-bemol">Mi♭</div>
+                    <div>Sol</div>
+                </div>
+                <p class="notes"><strong>Notas:</strong> Do (I), Mi♭ (♭III), Sol (V)</p>
+            </div>
+
+            <h3>Acordes de Séptima Dominante</h3>
+            <div class="chord-box">
+                <h4>Estructura</h4>
+                <p>Tónica + tercera mayor + quinta justa + séptima menor</p>
+                <p><span class="chord-formula">Fórmula: 1-3-5-♭7</span></p>
+                <p><span class="chord-example">Ejemplo: Do séptima (C7) = Do-Mi-Sol-Si♭</span></p>
+                <p>Sonoridad: tensión, movimiento, necesidad de resolución</p>
+                <p>En guitarra: Forma común de Do séptima: X32310</p>
+            </div>
+
+            <div class="chord-container">
+                <div class="chord-title">Acordes de Séptima Dominante</div>
+                <div class="chord-table">
+                    <div class="header">Grado</div>
+                    <div>I</div>
+                    <div>III</div>
+                    <div>V</div>
+                    <div class="highlight seventh">♭VII</div>
+                </div>
+                <div class="chord-table">
+                    <div class="header">Nota</div>
+                    <div>Do</div>
+                    <div>Mi</div>
+                    <div>Sol</div>
+                    <div class="highlight seventh highlight-bemol">Si♭</div>
+                </div>
+                <p class="notes"><strong>Notas:</strong> Do (I), Mi (III), Sol (V), Si♭ (♭VII)</p>
+            </div>
+
+            <h3>Acordes Disminuidos</h3>
+            <div class="chord-box">
+                <h4>Estructura</h4>
+                <p>Tónica + tercera menor + quinta disminuida</p>
+                <p><span class="chord-formula">Fórmula: 1-♭3-♭5</span></p>
+                <p><span class="chord-example">Ejemplo: Do disminuido (Cdim) = Do-Mi♭-Sol♭</span></p>
+                <p>Sonoridad: intensa tensión, inestabilidad</p>
+                <p>En guitarra: Forma común de Do disminuido: X34242</p>
+            </div>
+
+            <div class="chord-container">
+                <div class="chord-title">Acordes Disminuidos</div>
+                <div class="chord-table">
+                    <div class="header">Grado</div>
+                    <div>I</div>
+                    <div class="highlight diminished">♭III</div>
+                    <div class="highlight diminished">♭V</div>
+                </div>
+                <div class="chord-table">
+                    <div class="header">Nota</div>
+                    <div>Do</div>
+                    <div class="highlight diminished highlight-bemol">Mi♭</div>
+                    <div class="highlight diminished highlight-bemol">Sol♭</div>
+                </div>
+                <p class="notes"><strong>Notas:</strong> Do (I), Mi♭ (♭III), Sol♭ (♭V)</p>
+            </div>
+
+            <h3>Acordes Aumentados</h3>
+            <div class="chord-box">
+                <h4>Estructura</h4>
+                <p>Tónica + tercera mayor + quinta aumentada</p>
+                <p><span class="chord-formula">Fórmula: 1-3-#5</span></p>
+                <p><span class="chord-example">Ejemplo: Do aumentado (Caug) = Do-Mi-Sol♯</span></p>
+                <p>Sonoridad: brillante pero con tensión, inquietante</p>
+                <p>En guitarra: Forma común de Do aumentado: X32110</p>
+            </div>
+
+            <div class="chord-container">
+                <div class="chord-title">Acordes Aumentados</div>
+                <div class="chord-table">
+                    <div class="header">Grado</div>
+                    <div>I</div>
+                    <div>III</div>
+                    <div class="highlight augmented">#V</div>
+                </div>
+                <div class="chord-table">
+                    <div class="header">Nota</div>
+                    <div>Do</div>
+                    <div>Mi</div>
+                    <div class="highlight augmented highlight-sostenido">Sol♯</div>
+                </div>
+                <p class="notes"><strong>Notas:</strong> Do (I), Mi (III), Sol♯ (#V)</p>
+            </div>
+
+            <h3>Acordes Suspendidos (Sus2)</h3>
+            <div class="chord-box">
+                   <h4>Estructura</h4>
+                <p>Tónica + segunda mayor + quinta justa</p>
+                <p><span class="chord-formula">Fórmula: 1-2-5</span></p>
+                <p><span class="chord-example">Ejemplo: Do sus2 (Csus2) = Do-Re-Sol</span></p>
+                <p>Sonoridad: abierta, etérea, sin definición clara mayor/menor</p>
+                <p>En guitarra: Forma común de Do sus2: X30010</p>
+            </div>
+
+            <div class="chord-container">
+                <div class="chord-title">Acordes Suspendidos (Sus2)</div>
+                <div class="chord-table">
+                    <div class="header">Grado</div>
+                    <div>I</div>
+                    <div class="highlight sus2">II</div>
+                    <div>V</div>
+                </div>
+                <div class="chord-table">
+                    <div class="header">Nota</div>
+                    <div>Do</div>
+                    <div class="highlight sus2">Re</div>
+                    <div>Sol</div>
+                </div>
+                <p class="notes"><strong>Notas:</strong> Do (I), Re (II), Sol (V)</p>
+            </div>
+
+            <h3>Acordes Suspendidos (Sus4)</h3>
+            <div class="chord-box">
+                <h4>Estructura</h4>
+                <p>Tónica + cuarta justa + quinta justa</p>
+                <p><span class="chord-formula">Fórmula: 1-4-5</span></p>
+                <p><span class="chord-example">Ejemplo: Do sus4 (Csus4) = Do-Fa-Sol</span></p>
+                <p>Sonoridad: suspensiva, expectante, con tensión que busca resolverse</p>
+                <p>En guitarra: Forma común de Do sus4: X33010</p>
+            </div>
+
+            <div class="chord-container">
+                <div class="chord-title">Acordes Suspendidos (Sus4)</div>
+                <div class="chord-table">
+                    <div class="header">Grado</div>
+                    <div>I</div>
+                    <div class="highlight sus4">IV</div>
+                    <div>V</div>
+                </div>
+                <div class="chord-table">
+                    <div class="header">Nota</div>
+                    <div>Do</div>
+                    <div class="highlight sus4">Fa</div>
+                    <div>Sol</div>
+                </div>
+              <h3>Diferencias y Características Principales</h3>
+<table>
+    <tr>
+        <th>Tipo de Acorde</th>
+        <th>Característica Distintiva</th>
+        <th>Sonoridad</th>
+        <th>Uso Común</th>
+    </tr>
+    <tr>
+        <td>Mayor</td>
+        <td>Tercera mayor</td>
+        <td>Alegre, estable</td>
+        <td>Base de la armonía en tonalidades mayores</td>
+    </tr>
+    <tr>
+        <td>Menor</td>
+        <td>Tercera menor</td>
+        <td>Melancólica</td>
+        <td>Base de la armonía en tonalidades menores</td>
+    </tr>
+    <tr>
+        <td>Séptima</td>
+        <td>Séptima menor añadida a acorde mayor</td>
+        <td>Tensión, movimiento</td>
+        <td>Dominantes, cadencias, blues, jazz</td>
+    </tr>
+    <tr>
+        <td>Séptima Mayor</td>
+        <td>Séptima mayor añadida</td>
+        <td>Sofisticada, suave</td>
+        <td>Jazz, bossa nova, pop moderno</td>
+    </tr>
+    <tr>
+        <td>Disminuido</td>
+        <td>Quinta disminuida</td>
+        <td>Tensión extrema</td>
+        <td>Transiciones dramáticas, música clásica</td>
+    </tr>
+    <tr>
+        <td>Aumentado</td>
+        <td>Quinta aumentada</td>
+        <td>Inquietante</td>
+        <td>Música experimental, transiciones</td>
+    </tr>
+    <tr>
+        <td>Sus2</td>
+        <td>Segunda en lugar de tercera</td>
+        <td>Abierta, etérea</td>
+        <td>Rock, folk, música ambiental</td>
+    </tr>
+    <tr>
+        <td>Sus4</td>
+        <td>Cuarta en lugar de tercera</td>
+        <td>Suspensiva, tensa</td>
+        <td>Rock, intros, momentos de tensión</td>
+    </tr>
+</table>
+
+<h3>Uso de Acordes Suspendidos en Progresiones</h3>
+<p>Los acordes suspendidos tienen un uso especial en las progresiones armónicas:</p>
+<ul>
+    <li>Los acordes sus4 frecuentemente se resuelven al acorde mayor o menor correspondiente: Csus4 → C</li>
+    <li>Los acordes sus2 pueden usarse para crear texturas abiertas sin definir claramente el modo (mayor o menor)</li>
+    <li>La combinación de acordes sus2 y sus4 en una misma progresión puede crear interesantes movimientos melódicos internos</li>
+    <li>En el rock, es común el patrón: Acorde sus4 → Acorde mayor → Acorde sus2</li>
+    <li>En guitarras con afinación abierta, los acordes sus a menudo se usan para crear efectos de drone o pedal</li>
+</ul>
+
+<p>La elección del acorde afecta profundamente el carácter de la música. Los mayores suelen transmitir alegría, los menores melancolía, los dominantes (séptima) generan tensión, los disminuidos y aumentados crean máxima tensión, mientras que los suspendidos aportan ambigüedad y expectativa.</p>
+
+<p>En la guitarra, cambiar entre estos tipos de acordes suele requerir mover solo uno o dos dedos, lo que permite transiciones suaves entre diferentes sonoridades, especialmente en el caso de los acordes suspendidos que suelen funcionar como adornos o momentos de transición entre acordes más estables.</p>
+
+
+    <script>
+        const video = document.getElementById('background-video');
+        const muteButton = document.getElementById('mute-button');
+        const volumeControl = document.getElementById('volume-control');
+
+        muteButton.addEventListener('click', () => {
+            if (video.muted) {
+                video.muted = false;
+                muteButton.textContent = 'Silenciar';
+            } else {
+                video.muted = true;
+                muteButton.textContent = 'Activar sonido';
+            }
+        });
+
+        volumeControl.addEventListener('input', () => {
+            video.volume = volumeControl.value;
+        });
+    </script>
+</body>
+</html>
