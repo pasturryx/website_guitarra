@@ -1,163 +1,181 @@
 <!DOCTYPE html>
-<link rel="icon" href="ico/music5.ico" type="image/x-icon">
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Música Interactiva - Felipe Rodríguez</title>
     <link rel="icon" href="ico/music5.ico" type="image/x-icon">
-   <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        overflow-x: hidden;
-        background-color: #0a0a0a;
-    }
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-color: #0a0a0a;
+        }
 
-    .video-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        overflow: hidden;
-    }
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
 
-    video {
-        position: absolute;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        object-fit: cover;
-    }
+        video {
+            position: absolute;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
 
-    .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: -1;
-    }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
 
-    .title-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        padding: 10px 0;
-        z-index: 1;
-    }
+        .title-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px 0;
+            z-index: 1;
+        }
 
-    .title-container h1 {
-        color: white;
-        text-align: left;
-        margin: 0;
-        padding: 10px 20px;
-        font-size: 2em;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    }
+        .title-container h1 {
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 10px 20px;
+            font-size: 1.5em; /* Tamaño reducido */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
 
-    .content-container {
-        display: flex;
-        padding: 265px 20px 20px 200px;
-    }
+        .content-container {
+            display: flex;
+            flex-direction: row;
+            padding: 80px 20px 20px 20px; /* Ajustar padding */
+            flex-wrap: wrap;
+        }
 
-    .main-content {
-        flex: 1;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        margin-left: 20px;
-        margin-top: 20px;
-    }
+        .main-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px; /* Tamaño reducido */
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-left: 20px;
+            margin-top: 20px;
+            min-width: 300px;
+        }
 
-    .sidebar {
-        position: fixed;
-        left: 0;
-        top: 80px;
-        width: 180px;
-        background: rgba(0, 123, 255, 0.9);
-        padding: 15px;
-        height: calc(100vh - 80px); /* Ajustar altura para evitar superposición */
-        backdrop-filter: blur(10px);
-        overflow-y: auto; /* Barra de desplazamiento vertical */
-    }
+        .sidebar {
+            width: 180px;
+            background: rgba(0, 123, 255, 0.9);
+            padding: 15px;
+            height: auto; /* Ajustar altura automáticamente */
+            position: relative; /* Cambiado para móviles */
+            margin-bottom: 20px; /* Espacio en la parte inferior */
+        }
 
-    .menu-links {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
+        .menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-    .menu-links a {
-        color: white;
-        text-decoration: none;
-        padding: 8px 15px;
-        border-radius: 5px;
-        background: rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease;
-        text-align: center;
-        font-size: 0.9em;
-    }
+        .menu-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9em;
+        }
 
-    .menu-links a:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateX(5px);
-    }
+        .menu-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(5px);
+        }
 
-    .sound-controls {
-        margin-top: 20px;
-        padding: 15px;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-    }
+        .sound-controls {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
 
-    .sound-controls button {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 8px;
-        border: none;
-        border-radius: 4px;
-        background: white;
-        cursor: pointer;
-        transition: background 0.3s;
-        font-size: 0.9em;
-    }
+        .sound-controls button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: none;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-size: 0.9em;
+        }
 
-    .sound-controls button:hover {
-        background: #e0e0e0;
-    }
+        .sound-controls button:hover {
+            background: #e0e0e0;
+        }
 
-    .volume-control {
-        width: 100%;
-        margin-top: 8px;
-    }
+        .volume-control {
+            width: 100%;
+            margin-top: 8px;
+        }
 
-    .main-content h3 {
-        color: #007BFF;
-        margin-bottom: 20px;
-        font-size: 1.6em;
-    }
+        .main-content h3 {
+            color: #007BFF;
+            margin-bottom: 20px;
+            font-size: 1.4em; /* Tamaño reducido */
+        }
 
-    .main-content p {
-        line-height: 1.8;
-        color: #333;
-        font-size: 1.1em;
-        margin-bottom: 20px;
-        text-align: justify;
-    }
-</style>
+        .main-content p {
+            line-height: 1.8;
+            color: #333;
+            font-size: 1em; /* Tamaño reducido */
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        /* Media Query para dispositivos móviles */
+        @media (max-width: 768px) {
+            .content-container {
+                flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+                padding: 80px 10px 10px 10px; /* Reducir el padding */
+            }
+
+            .sidebar {
+                width: 100%; /* Hacer que la barra lateral ocupe todo el ancho */
+                margin: 0; /* Eliminar márgenes */
+            }
+
+            .main-content {
+                margin-left: 0; /* Eliminar el margen izquierdo */
+                margin-top: 20px; /* Mantener margen superior */
+                width: 100%; /* Ancho completo */
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="video-container">
@@ -172,7 +190,6 @@
         <h1>Bienvenido a la Página de Felipe Rodríguez</h1>
     </div>
 
-
     <div class="content-container">
         <div class="sidebar">
             <h2>Menú</h2>
@@ -185,25 +202,7 @@
                 <a href="escalas_interactivo.html">Estructura Acordes y escalas</a>
                 <a href="guitarra_didactica.html">Guitarra Interactiva</a>
                 <a href="piano_real_didactico.html">Piano Interactivo</a>
-                 <a href="https://pasturryx.github.io/website_guitarra/circulo_quintas/src/dist/index.html">Círculo de Quintas</a>
-                  <!-- <a href="intervalos_tonos.html">Notacion musical, Tonos e intervalos</a> -->
- <!-- <a href="acordes.html">Diagrama de acordes</a> -->
-                <!-- <a href="C:/Users/felip/Documents/GitHub/website_guitarra/circulo_quintas/src/dist/index.html">Círculo de Quintas</a></li> -->
-                <!-- <a href="acordes_imagenes.html">Diagrama de acordes2</a> -->
-                <!-- <a href="superguiaacordes.pdf">Guia todos los acordes</a> -->
-                    <!-- <a href="superguiaacordes.pdf" target="_blank">Guía todos los acordes</a> -->
-                 <!-- Nuevo enlace --> 
-                 <!-- <a href="https://felip.github.io/website_guitarra/src/dist/index.html">Círculo de Quintas</a> -->
-                 <!-- <a href="https://pasturryx.github.io/website_guitarra/circulo_quintas/src/dist/index.html">Círculo de Quintas</a> -->
-                 <!-- <a href="src/index.html">Círculo de Quintas</a> -->
-                 <!-- Nuevo enlace --> 
-
-                 <!-- <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas2\dist/index.html">Círculo de Quintas2</a></li>  -->
-                 <!-- Nuevo enlace -->
-                 <!-- <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas3/index.html">Círculo de Quintas3</a></li>  -->
-                 <!-- Nuevo enlace -->
-                 <!-- <a href="C:\Users\felip\Desktop\Interactive websie\circulo_quintas4\dist/index.html">Círculo de Quintas4</a></li> -->
-                 <!-- Nuevo enlace --> -->
+                <a href="https://pasturryx.github.io/website_guitarra/circulo_quintas/src/dist/index.html">Círculo de Quintas</a>
             </div>
 
             <div class="sound-controls">
@@ -225,12 +224,8 @@
             <p>
                 Hola, soy Felipe Rodríguez, tengo 31 años y soy de Arica, Chile. 
                 Soy egresado de Traductor e Intérprete de la Universidad Arturo Prat.
-            <!-- </p> -->
-            <!-- <p> -->
                 Actualmente estoy cursando el último año de Trabajo Social en la 
                 Universidad de Tarapacá, Arica.
-            <!-- </p> -->
-            <!-- <p> -->
                 Me apasiona la música y esta página fue creada como una guía personal. 
                 A medida que la fui desarrollando, me di cuenta de que debía compartirla 
                 con el público, promoviendo el conocimiento libre.
