@@ -1,0 +1,10 @@
+workflows:
+  ios-workflow:
+    name: iOS Workflow
+    environment:
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - xcodebuild build -workspace ios/Runner.xcworkspace -scheme Runner
+    artifacts:
+      - build/ios/ipa/*.ipa
