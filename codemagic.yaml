@@ -8,7 +8,8 @@ workflows:
       - name: Instalar dependencias
         script: |
           cd ios
-          pod install
+          pod repo update
+          pod install --verbose
       - name: Compilar con Xcode
         script: |
           xcodebuild clean build -workspace ios/Runner.xcworkspace -scheme Runner CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
