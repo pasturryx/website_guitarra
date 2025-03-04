@@ -5,6 +5,12 @@ workflows:
       xcode: latest
       cocoapods: default
     scripts:
-      - xcodebuild build -workspace ios/Runner.xcworkspace -scheme Runner
+      - name: Install CocoaPods dependencies
+        script: |
+          cd ios
+          pod install
+      - name: Build iOS app
+        script: |
+          xcodebuild build -workspace ios/Runner.xcworkspace -scheme Runner
     artifacts:
       - build/ios/ipa/*.ipa
