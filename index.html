@@ -55,71 +55,67 @@
             background: rgba(0, 0, 0, 0.5);
             padding: 10px 0;
             z-index: 1;
+            text-align: center;
         }
 
         .title-container h1 {
             color: white;
-            text-align: center;
             margin: 0;
-            padding: 10px 20px;
-            font-size: 1.5em; /* Tamaño reducido */
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            font-size: 1.5em;
         }
 
-        .content-container {
-            display: flex;
-            flex-direction: row;
-            padding: 80px 20px 20px 20px; /* Ajustar padding */
-            flex-wrap: wrap;
-        }
-
-        .main-content {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 15px; /* Tamaño reducido */
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            margin-left: 20px;
-            margin-top: 20px;
-            min-width: 300px;
-        }
-
-        .sidebar {
-            width: 180px;
+        .menu-button {
             background: rgba(0, 123, 255, 0.9);
-            padding: 15px;
-            height: auto; /* Ajustar altura automáticamente */
-            position: relative; /* Cambiado para móviles */
-            margin-bottom: 20px; /* Espacio en la parte inferior */
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            width: 100%;
         }
 
         .menu-links {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            display: none; /* Ocultar por defecto */
+            background: rgba(0, 123, 255, 0.9);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
         }
 
         .menu-links a {
             color: white;
             text-decoration: none;
-            padding: 8px 15px;
+            display: block;
+            padding: 10px;
             border-radius: 5px;
+            margin: 5px 0;
             background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            text-align: center;
-            font-size: 0.9em;
+            transition: background 0.3s;
         }
 
         .menu-links a:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateX(5px);
+        }
+
+        .content-container {
+            padding: 80px 10px 20px; /* Ajustado para móviles */
+            width: 100%;
+        }
+
+        .main-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
         }
 
         .sound-controls {
-            margin-top: 20px;
             padding: 15px;
             background: rgba(0, 0, 0, 0.2);
             border-radius: 8px;
+            margin-top: 20px;
         }
 
         .sound-controls button {
@@ -131,7 +127,6 @@
             background: white;
             cursor: pointer;
             transition: background 0.3s;
-            font-size: 0.9em;
         }
 
         .sound-controls button:hover {
@@ -146,33 +141,21 @@
         .main-content h3 {
             color: #007BFF;
             margin-bottom: 20px;
-            font-size: 1.4em; /* Tamaño reducido */
+            font-size: 1.4em;
         }
 
         .main-content p {
             line-height: 1.8;
             color: #333;
-            font-size: 1em; /* Tamaño reducido */
+            font-size: 1em;
             margin-bottom: 20px;
             text-align: justify;
         }
 
-        /* Media Query para dispositivos móviles */
+        /* Media Query para ajustar en pantallas pequeñas */
         @media (max-width: 768px) {
-            .content-container {
-                flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
-                padding: 80px 10px 10px 10px; /* Reducir el padding */
-            }
-
-            .sidebar {
-                width: 100%; /* Hacer que la barra lateral ocupe todo el ancho */
-                margin: 0; /* Eliminar márgenes */
-            }
-
-            .main-content {
-                margin-left: 0; /* Eliminar el margen izquierdo */
-                margin-top: 20px; /* Mantener margen superior */
-                width: 100%; /* Ancho completo */
+            .menu-links {
+                display: block; /* Mostrar el menú en móviles */
             }
         }
     </style>
@@ -188,37 +171,21 @@
 
     <div class="title-container">
         <h1>Bienvenido a la Página de Felipe Rodríguez</h1>
+        <button class="menu-button" id="menu-toggle">Menú</button>
+        <div class="menu-links" id="menu-links">
+            <a href="register.html">Registro</a>    
+            <a href="construccion_acordes.html">Teoría de acordes</a>
+            <a href="estructura_acordes.html">Estructura de acordes</a>
+            <a href="acordes_imagenes.html">Diagrama de acordes</a>
+            <a href="escalas_diagrama.html">Diagrama Escalas y modos</a>
+            <a href="escalas_interactivo.html">Estructura Acordes y escalas</a>
+            <a href="guitarra_didactica.html">Guitarra Interactiva</a>
+            <a href="piano_real_didactico.html">Piano Interactivo</a>
+            <a href="https://pasturryx.github.io/website_guitarra/circulo_quintas/src/dist/index.html">Círculo de Quintas</a>
+        </div>
     </div>
 
     <div class="content-container">
-        <div class="sidebar">
-            <h2>Menú</h2>
-            <div class="menu-links">
-                <a href="register.html">Registro</a>    
-                <a href="construccion_acordes.html">Teoria de acordes</a>
-                <a href="estructura_acordes.html">Estructura de acordes</a>
-                <a href="acordes_imagenes.html">Diagrama de acordes</a>
-                <a href="escalas_diagrama.html">Diagrama Escalas y modos</a>
-                <a href="escalas_interactivo.html">Estructura Acordes y escalas</a>
-                <a href="guitarra_didactica.html">Guitarra Interactiva</a>
-                <a href="piano_real_didactico.html">Piano Interactivo</a>
-                <a href="https://pasturryx.github.io/website_guitarra/circulo_quintas/src/dist/index.html">Círculo de Quintas</a>
-            </div>
-
-            <div class="sound-controls">
-                <button id="mute-button">Activar sonido</button>
-                <input 
-                    type="range" 
-                    id="volume-control" 
-                    class="volume-control"
-                    min="0" 
-                    max="1" 
-                    step="0.1" 
-                    value="0"
-                >
-            </div>
-        </div>
-
         <div class="main-content">
             <h3>Sobre mí</h3>
             <p>
@@ -231,12 +198,27 @@
                 con el público, promoviendo el conocimiento libre.
             </p>
         </div>
+
+        <div class="sound-controls">
+            <button id="mute-button">Activar sonido</button>
+            <input 
+                type="range" 
+                id="volume-control" 
+                class="volume-control"
+                min="0" 
+                max="1" 
+                step="0.1" 
+                value="0"
+            >
+        </div>
     </div>
 
     <script>
         const video = document.getElementById('background-video');
         const muteButton = document.getElementById('mute-button');
         const volumeControl = document.getElementById('volume-control');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuLinks = document.getElementById('menu-links');
 
         muteButton.addEventListener('click', () => {
             if (video.muted) {
@@ -250,6 +232,10 @@
 
         volumeControl.addEventListener('input', () => {
             video.volume = volumeControl.value;
+        });
+
+        menuToggle.addEventListener('click', () => {
+            menuLinks.style.display = menuLinks.style.display === 'block' ? 'none' : 'block';
         });
     </script>
 </body>
