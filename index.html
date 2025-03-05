@@ -157,6 +157,54 @@
         margin-bottom: 20px;
         text-align: justify;
     }
+/*    hide box*/
+/*.info-box {*/
+/*    background-color: white;*/
+/*    padding: 20px;*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
+/*    margin: 20px auto;*/
+/*    max-width: 600px;*/
+/*}*/
+.info-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute; /* Cambia a posición absoluta */
+    top: 80px; /* Ajusta la distancia desde la parte superior */
+    left: 210px; /* Ajusta la distancia desde la izquierda */
+    max-width: 200px;
+    z-index: 10; /* Asegúrate de que esté por encima de otros elementos */
+}
+/*tambien agregado para el texto*/
+.info-box h2 {
+    color: #007BFF; /* Cambia este color al que desees para el título */
+}
+
+.info-box p {
+    color: #333; /* Color del texto de la información */
+    text-align: justify; /* Justifica el texto */
+}
+/*tambien agregado para el texto*/
+.hidden {
+    display: none;
+}
+
+#toggle-info {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#toggle-info:hover {
+    background-color: #0056b3;
+}
+/*hide box*/
 </style>
 </head>
 <body>
@@ -169,7 +217,7 @@
     </div>
 
     <div class="title-container">
-        <h1>Bienvenido a la Página de Felipe Rodríguez</h1>
+        <h1>Bienvenido a la Página de Teoria Musical Orientada a la guitarra</h1>
     </div>
 
 
@@ -180,9 +228,9 @@
                 <a href="register.html">Registro</a>    
                 <a href="construccion_acordes.html">Teoria de acordes</a>
                 <a href="estructura_acordes.html">Estructura de acordes</a>
-                <a href="acordes_imagenes.html">Diagrama de acordes</a>
+                <a href="acordes_diagrama.html">Diagrama de acordes</a>
                 <a href="escalas_diagrama.html">Diagrama Escalas y modos</a>
-                <a href="escalas_interactivo.html">Estructura Acordes y escalas</a>
+                <a href="escalas_interactivo.html">Estructura Acordes y escalas(juega)</a>
                 <a href="guitarra_didactica.html">Guitarra Interactiva</a>
                 <a href="piano_real_didactico.html">Piano Interactivo</a>
                  <a href="https://pasturryx.github.io/website_guitarra/circulo_quintas/src/dist/index.html">Círculo de Quintas</a>
@@ -220,23 +268,13 @@
             </div>
         </div>
 
-        <div class="main-content">
-            <h3>Sobre mí</h3>
-            <p>
-                Hola, soy Felipe Rodríguez, tengo 31 años y soy de Arica, Chile. 
-                Soy egresado de Traductor e Intérprete de la Universidad Arturo Prat.
-            <!-- </p> -->
-            <!-- <p> -->
-                Actualmente estoy cursando el último año de Trabajo Social en la 
-                Universidad de Tarapacá, Arica.
-            <!-- </p> -->
-            <!-- <p> -->
-                Me apasiona la música y esta página fue creada como una guía personal. 
-                A medida que la fui desarrollando, me di cuenta de que debía compartirla 
-                con el público, promoviendo el conocimiento libre.
-            </p>
-        </div>
+        <div class="info-box">
+    <h2>Sobre mí</h2>
+    <button id="toggle-info">Mostrar Información</button>
+    <div id="info-content" class="hidden">
+        <p>Hola, soy Felipe Rodríguez, tengo 31 años y soy de Arica, Chile. Soy egresado de Traductor e Intérprete de la Universidad Arturo Prat. Actualmente, estoy cursando el último año de Trabajo Social en la Universidad de Tarapacá, Arica. Me encanta la música y esta página fue creada como un lugar personal. A medida que la fui desarrollando, me di cuenta de que quería compartir conocimientos libres.</p>
     </div>
+</div>
 
     <script>
         const video = document.getElementById('background-video');
@@ -257,5 +295,19 @@
             video.volume = volumeControl.value;
         });
     </script>
+    <!-- hiden box -->
+    <script>
+        document.getElementById("toggle-info").addEventListener("click", function() {
+    var infoContent = document.getElementById("info-content");
+    if (infoContent.classList.contains("hidden")) {
+        infoContent.classList.remove("hidden");
+        this.innerText = "Ocultar Información";
+    } else {
+        infoContent.classList.add("hidden");
+        this.innerText = "Mostrar Información";
+    }
+});
+</script>
+<!-- hidden box -->
 </body>
 </html>
