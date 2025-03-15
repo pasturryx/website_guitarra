@@ -147,7 +147,7 @@
         .video-box a:hover {
             text-decoration: underline;
         }
-
+/*texto normal hiper link*/
 .warning-message {
   margin: 10px 20px;
   padding: 15px; /* Aumentado para más espacio */
@@ -158,6 +158,16 @@
   font-size: 16px; /* Aumentado el tamaño del texto */
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Aumentado el efecto de sombra */
+}
+
+.link {
+  color: inherit; /* Hereda el color del texto */
+  text-decoration: none; /* Sin subrayado por defecto */
+}
+
+.link:hover {
+  color: #007bff; /* Color azul al pasar el mouse */
+  text-decoration: underline; /* Subrayado al pasar el mouse */
 }
 </s
     </style>
@@ -263,10 +273,11 @@
 
 
 <!-- Mensaje de advertencia -->
+<!-- Mensaje de advertencia -->
 <div class="warning-message">
   <strong>¡OJO!</strong> En la siguiente página podrás encontrar mucha más información en relación a la estructura de acordes <strong>y mucho más:</strong> 
-  <a href="https://miguitarraelectrica.com/acordes-de-guitarra/" target="_blank" style="font-size: 18px; color: #007bff; text-decoration: underline;">
-    https://miguitarraelectrica.com/acordes-de-guitarra/
+  <a href="https://miguitarraelectrica.com/acordes-de-guitarra/" target="_blank" class="link">
+    miguitarraelectrica.com
   </a>
 </div>
 
