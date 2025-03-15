@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <link rel="icon" href="ico/music5.ico" type="image/x-icon">
-<link rel="icon" href="ico/music5.ico" type="image/x-icon">
-<!-- <link rel="icon" href="ico/music5.ico" type="image/x-icon"> -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -34,27 +32,24 @@
         p {
             line-height: 1.6;
         }
-           /* Estilos para el botón "Volver al inicio" */
         .back-to-top {
-            position: fixed; /* Fija el botón en la pantalla */
-            top: 20px; /* Distancia desde la parte superior */
-            left: 20px; /* Distancia desde la izquierda */
-            background-color: #28a745; /* Color verde */
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: #28a745;
             color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            text-decoration: none; /* Quita el subrayado del enlace */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
-            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
         }
         .back-to-top:hover {
-            background-color: #218838; /* Color verde más oscuro al pasar el mouse */
+            background-color: #218838;
         }
-
-        /* Estilos para las secciones de Acordes */
         .chord-section {
             margin-bottom: 40px;
             background: white;
@@ -102,8 +97,6 @@
             margin-top: 10px;
             font-size: 1.1em;
         }
-
-        /* Colores para tipos de Acordes */
         .major { background-color: #e3f2fd; }
         .minor { background-color: #fff3e0; }
         .seventh { background-color: #fce4ec; }
@@ -113,14 +106,10 @@
         .sus4 { background-color: #e0f7fa; }
         .diminished { background-color: #ffebee; }
         .augmented { background-color: #fbe9e7; }
-        
-        /* Variaciones */
         .variation { 
             background: linear-gradient(135deg, #ffd700, #ffa500);
             opacity: 0.85;
         }
-
-        /* Footer */
         footer {
             text-align: center;
             padding: 20px 0;
@@ -128,150 +117,172 @@
             color: #fff;
             margin-top: 40px;
         }
-
-        /* Responsive */
         @media (max-width: 768px) {
             .chord-box {
                 flex: 1 1 calc(50% - 20px);
             }
         }
+        /* Estilos para el video-box */
+        .video-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+        .video-box h3 {
+            margin-top: 0;
+        }
+        .video-box iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+            border-radius: 10px;
+        }
+        .video-box a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .video-box a:hover {
+            text-decoration: underline;
+        }
+
+.warning-message {
+  margin: 10px 20px;
+  padding: 15px; /* Aumentado para más espacio */
+  background-color: #fff3cd; /* Fondo amarillo claro */
+  border: 1px solid #ffeeba; /* Borde amarillo */
+  border-radius: 5px;
+  color: #856404; /* Texto oscuro */
+  font-size: 16px; /* Aumentado el tamaño del texto */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Aumentado el efecto de sombra */
+}
+</s
     </style>
 </head>
 <body>
 
-<!-- Botón "Volver al inicio" -->
+    <!-- Botón "Volver al inicio" -->
     <a href="index.html" class="back-to-top">Volver al inicio</a>
 
-<header>
-    <h1>Diccionario de Acordes con Imágenes</h1>
-    <p>Explora y aprende los Acordes más comunes en la guitarra con imágenes</p>
-</header>
+    <header>
+        <h1>Diccionario de Acordes con Imágenes</h1>
+        <p>Explora y aprende los Acordes más comunes en la guitarra con imágenes</p>
+    </header>
 
-<div class="container">
-    <!-- Acordes Mayores -->
-    <div class="chord-section">
-        <h2>Primeros Acordes (acordes basicos)</h2>
-        <div class="chord-row">
-            <div class="chord-box major">
-                <!-- <img src="ruta/a/imagen-todos-mayores.jpg" alt="Primeros Acordes (acordes basicos)"> -->
-                 <img src="acordes/acordes_basicos.png" alt="Primeros Acordes (acordes basicos)">
-                <div class="chord-name">Primeros Acordes (acordes basicos)</div>
+    <div class="container">
+        <!-- Acordes Mayores -->
+        <div class="chord-section">
+            <h2>Primeros Acordes (acordes básicos)</h2>
+            <div class="chord-row">
+                <div class="chord-box major">
+                    <img src="acordes/acordes_basicos.png" alt="Primeros Acordes (acordes básicos)">
+                    <div class="chord-name">Primeros Acordes (acordes básicos)</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Acordes de Séptima Mayor -->
-    <div class="chord-section">
-        <h2>Variantes de ciertos acordes. MI7, SI7 menor. FA Y SOL 7 MAYOR</h2>
-        <div class="chord-row">
-            <div class="chord-box major-seventh">
-                <!-- <img src="ruta/a/imagen-todos-major-seventh.jpg" alt="Acordes de séptima mayor"> -->
-                <img src="acordes/acordes_basicos2.png" alt="Variantes de ciertos acordes">
-                <div class="chord-name">Variantes de ciertos acordes</div>
+        <!-- Acordes de Séptima Mayor -->
+        <div class="chord-section">
+            <h2>Variantes de ciertos acordes. MI7, SI7 menor. FA Y SOL 7 MAYOR</h2>
+            <div class="chord-row">
+                <div class="chord-box major-seventh">
+                    <img src="acordes/acordes_basicos2.png" alt="Variantes de ciertos acordes">
+                    <div class="chord-name">Variantes de ciertos acordes</div>
+                </div>
             </div>
         </div>
-    </div>
 
-      <!-- Acordes de Séptima -->
-    <div class="chord-section">
-        <h2>Acordes sus2 y sus4</h2>
-        <div class="chord-row">
-            <div class="chord-box seventh">
-                <!-- <img src="ruta/a/imagen-todos-septima.jpg" alt="Acordes de séptima"> -->
-                 <img src="acordes/sus2sus4.png" alt="Acordes sus2 y sus4">
-                <div class="chord-name">Acordes sus2 y sus4</div>
+        <!-- Acordes de Séptima -->
+        <div class="chord-section">
+            <h2>Acordes sus2 y sus4</h2>
+            <div class="chord-row">
+                <div class="chord-box seventh">
+                    <img src="acordes/sus2sus4.png" alt="Acordes sus2 y sus4">
+                    <div class="chord-name">Acordes sus2 y sus4</div>
+                </div>
             </div>
         </div>
-    </div>
 
-
-    <!-- Acordes de Séptima Menor -->
-    <div class="chord-section">
-        <h2>Acordes disminuidos</h2>
-        <div class="chord-row">
-            <div class="chord-box minor-seventh">
-                <img src="acordes/disminuidos.png" alt="Acordes disminuidos">
-                <div class="chord-name">Acordes disminuidos</div>
+        <!-- Acordes de Séptima Menor -->
+        <div class="chord-section">
+            <h2>Acordes disminuidos</h2>
+            <div class="chord-row">
+                <div class="chord-box minor-seventh">
+                    <img src="acordes/disminuidos.png" alt="Acordes disminuidos">
+                    <div class="chord-name">Acordes disminuidos</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Acordes Menores -->
-    <div class="chord-section">
-        <h2>Acordes Aumentados</h2>
-        <div class="chord-row">
-            <div class="chord-box minor">
-                <img src="acordes/aumentados.png" alt="Acordes Aumentados">
-                <div class="chord-name">Acordes Aumentados</div>
+        <!-- Acordes Menores -->
+        <div class="chord-section">
+            <h2>Acordes Aumentados</h2>
+            <div class="chord-row">
+                <div class="chord-box minor">
+                    <img src="acordes/aumentados.png" alt="Acordes Aumentados">
+                    <div class="chord-name">Acordes Aumentados</div>
+                </div>
             </div>
         </div>
-    </div>
-     <!-- Acordes de Quinta o Power Chords -->
-    <div class="chord-section">
-        <h2>Acordes de Quinta o Power Chords</h2>
-        <div class="chord-row">
-            <div class="chord-box diminished">
-                <img src="acordes/acordes_quinta.png" alt="Acordes de Quinta o Power Chords">
-                <div class="chord-name">Acordes de Quinta o Power Chords</div>
+
+        <!-- Acordes de Quinta o Power Chords -->
+        <div class="chord-section">
+            <h2>Acordes de Quinta o Power Chords</h2>
+            <div class="chord-row">
+                <div class="chord-box diminished">
+                    <img src="acordes/acordes_quinta.png" alt="Acordes de Quinta o Power Chords">
+                    <div class="chord-name">Acordes de Quinta o Power Chords</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Acordes Pentatonicos -->
-    <div class="chord-section">
-        <h2>Acordes Pentatonicos</h2>
-        <div class="chord-row">
-            <div class="chord-box diminished">
-                <img src="acordes/acordes_pentatonicos.png" alt="Acordes Pentatonicos">
-                <div class="chord-name">Acordes Pentatonicos</div>
+        <!-- Acordes Pentatónicos -->
+        <div class="chord-section">
+            <h2>Acordes Pentatónicos</h2>
+            <div class="chord-row">
+                <div class="chord-box diminished">
+                    <img src="acordes/acordes_pentatonicos.png" alt="Acordes Pentatónicos">
+                    <div class="chord-name">Acordes Pentatónicos</div>
+                </div>
             </div>
         </div>
-    </div>
 
-
-    
-
-    <!-- Acordes Sus2 -->
-    <div class="chord-section">
-        <h2>Acordes Sus2</h2>
-        <div class="chord-row">
-            <div class="chord-box sus2">
-                <img src="ruta/a/imagen-todos-sus2.jpg" alt="Acordes Sus2">
-                <div class="chord-name">Acordes Sus2</div>
+           <!-- Todos los acordes -->
+        <div class="chord-section">
+            <h2>Todos los acordes</h2>
+            <div class="chord-row">
+                <div class="chord-box diminished">
+                    <img src="acordes/todos_los_acordes.png" alt="Todos los acordes">
+                    <div class="chord-name">Todos los acordes</div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Acordes Sus4 -->
-    <div class="chord-section">
-        <h2>Acordes Sus4</h2>
-        <div class="chord-row">
-            <div class="chord-box sus4">
-                <img src="ruta/a/imagen-todos-sus4.jpg" alt="Acordes Sus4">
-                <div class="chord-name">Acordes Sus4</div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Acordes Disminuidos -->
-    <div class="chord-section">
-        <h2>Acordes Disminuidos</h2>
-        <div class="chord-row">
-            <div class="chord-box diminished">
-                <img src="ruta/a/imagen-todos-disminuidos.jpg" alt="Acordes disminuidos">
-                <div class="chord-name">Acordes disminuidos</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Acordes Aumentados -->
-    <div class="chord-section">
-        <h2>Acordes Aumentados</h2>
-        <div class="chord-row">
-            <div class="chord-box augmented">
-                <img src="ruta/a/imagen-todos-aumentados.jpg" alt="Acordes aumentados">
-                <div class="chord-name">Acordes aumentados</div>
-            </div>
-        </div>
-    </div>
+<!-- Mensaje de advertencia -->
+<div class="warning-message">
+  <strong>¡OJO!</strong> En la siguiente página podrás encontrar mucha más información en relación a la estructura de acordes <strong>y mucho más:</strong> 
+  <a href="https://miguitarraelectrica.com/acordes-de-guitarra/" target="_blank" style="font-size: 18px; color: #007bff; text-decoration: underline;">
+    https://miguitarraelectrica.com/acordes-de-guitarra/
+  </a>
 </div>
+
+        <!-- Video: Entendiendo la estructura de 11 acordes básicos -->
+        <div class="video-box">
+            <h3>Entendiendo la estructura de 11 acordes básicos</h3>
+            <iframe 
+                width="100%" 
+                height="315" 
+                src="https://www.youtube.com/embed/WVngQagCUTU" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+            <p>Enlace: <a href="https://www.youtube.com/watch?v=WVngQagCUTU" target="_blank">Ver en YouTube</a></p>
+        </div>
+    </div>
+</body>
+</html>
