@@ -302,9 +302,29 @@
         font-size: 7px;
       }
     }
+     /* Estilos para el botón "Volver al inicio" */
+        .back-to-top {
+            position: fixed; /* Fija el botón en la pantalla */
+            top: 20px; /* Distancia desde la parte superior */
+            left: 20px; /* Distancia desde la izquierda */
+            background-color: #28a745; /* Color verde */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none; /* Quita el subrayado del enlace */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para resaltar */
+            z-index: 1000; /* Asegura que esté por encima de otros elementos */
+        }
+        .back-to-top:hover {
+            background-color: #218838; /* Color verde más oscuro al pasar el mouse */
+        }
   </style>
 </head>
-
+<!-- Botón "Volver al inicio" -->
+    <a href="index.html" class="back-to-top">Volver al inicio</a>
 <body>
   <div class="controls">
     <button id="toggleMarking">Marcar Notas</button>
